@@ -158,12 +158,12 @@ def main():
 
     sample_of_input_table = query_to_dataframe(
         snowflake_connector, f"SELECT * FROM {database}.{input_schema_table} LIMIT 5"
-    ).iloc[:, :5]
+    )
 
     if sample_of_input_table.empty:
         st.write(f"Chosen table (`{input_table}`) is empty!")
     else:
-        st.table(sample_of_input_table)
+        st.table(sample_of_input_table.iloc[:, :5])
 
     # --------------------------------------------
 
