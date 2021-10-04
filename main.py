@@ -118,13 +118,14 @@ if __name__ == "__main__":
             st.sidebar.error("Not connected.")
 
             st.error(
-                f"""Unfortunately, no credentials were found for data source: `{data_source}`.  
+                f"""Unfortunately, no credentials were found for data source: `{data_source}` in your Streamlit secrets.  
             You can have a look at our [documentation]({DATA_SOURCES[data_source]["docs_url"]}) 
-            to read more about it.
-            We also put it just below:"""
+            to read more about how to connect to databases.  
+            We also optionally display it just below:"""
             )
 
             # Show docs in an iframe
-            st.components.v1.iframe(
-                DATA_SOURCES[data_source]["docs_url"], height=600, scrolling=True
-            )
+            with st.expander("Open the documentation ⬇️"):
+                st.components.v1.iframe(
+                    DATA_SOURCES[data_source]["docs_url"], height=600, scrolling=True
+                )
