@@ -165,42 +165,6 @@ def main():
     else:
         st.table(sample_of_input_table.iloc[:, :5])
 
-    # --------------------------------------------
-
-    st.write("### ❓ Query")
-
-    query_form = st.form(key="query_form")
-
-    if tables.ROW_COUNT.gt(0).empty:
-        st.write(
-            "Could not find any table with at least one row. Try changing database!"
-        )
-        return
-
-    sample_query_table = tables[tables.ROW_COUNT.gt(0)].iloc[0]
-    sample_query = "\n".join(
-        (
-            "SELECT *",
-            f"FROM {sample_query_table.TABLE_CATALOG}.{sample_query_table.TABLE_SCHEMA}.{sample_query_table.TABLE_NAME}",
-            "LIMIT 10;",
-        )
-    )
-
-    input_query_sql = query_form.text_area(
-        label="Run an arbitrary query",
-        key="input_sql",
-        height=10,
-        value=sample_query,
-    )
-
-    submit_query = query_form.form_submit_button("Run query")
-
-    if submit_query:
-        result_dataframe = query_to_dataframe(snowflake_connector, input_query_sql)
-        if not result_dataframe.empty:
-            st.write("Result: (first 5 rows, first 5 columns)")
-            st.table(result_dataframe.head(5).iloc[:, :5])
-
 
 if __name__ == "__main__":
     main()

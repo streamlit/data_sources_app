@@ -108,20 +108,6 @@ def main():
         .head(10)
     )
 
-    st.write("### ❓ Query")
-
-    query_form = st.form(key="query_form")
-    input_query_sql = query_form.text_area(
-        label="Run arbitrary BigQuery query",
-        key="input_sql",
-        height=10,
-        value="SELECT * FROM s4a-prod.streamlit_web_db.apps LIMIT 10;",
-    )
-    submit_query = query_form.form_submit_button()
-    if submit_query:
-        st.code(input_query_sql, language="sql")
-        st.table(_CLIENT.query(input_query_sql).to_dataframe().iloc[:, :4])
-
 
 if __name__ == "__main__":
     main()

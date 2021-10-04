@@ -1,5 +1,5 @@
 import streamlit as st
-from gsheetsdb import connect
+from gsheetsdb import connect, OperationalError
 import pandas_profiling
 
 from streamlit_pandas_profiling import st_profile_report
@@ -66,35 +66,6 @@ def main():
         "Here's a sample of the data in the input Google Sheet you provided in the secrets:"
     )
     st.table(data.head())
-
-    # --------------------------------------------
-
-    st.write("### ❓ Query")
-
-    query_form = st.form(key="query_form")
-
-    sample_query = "SELECT * FROM my_gsheet LIMIT 10"
-
-    input_query_sql = query_form.text_area(
-        label="Run an arbitrary query on your data in Google Sheets as if it was an SQL table called my_gsheet!",
-        key="input_sql",
-        height=10,
-        value=sample_query,
-    )
-
-    submit_query = query_form.form_submit_button("Run query")
-
-    if submit_query:
-
-        # Replace `my_gsheet` by actual secret sheet URL
-        if not "my_gsheet" in input_query_sql:
-            return st.write("Don't remove 'my_gsheet'! Try again :-)")
-
-        final_query_sql = input_query_sql.replace("my_gsheet", f'"{gsheets_url}"')
-        result_dataframe = query_to_dataframe(gsheet_connector, final_query_sql)
-        if not result_dataframe.empty:
-            st.write("Result: (first 5 rows, first 5 columns)")
-            st.table(result_dataframe.head(5).iloc[:, :5])
 
 
 if __name__ == "__main__":
