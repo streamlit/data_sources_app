@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+streamlit = "*"
+google-cloud-bigquery = "*"
+matplotlib = "*"
+streamlit-agraph = "*"
+snowflake-connector-python = "*"
+google-api-python-client = "*"
+gsheetsdb = "*"
+streamlit-pandas-profiling = "*"
+millify = "*"
+supabase-py = "*"
+
+[dev-packages]
+black = "*"  # Pretty formatting of Python code
+pynvim = "*" # Allows nvim users to use black formatting
+
+[pipenv]
+allow_prereleases = true
