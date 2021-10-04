@@ -96,16 +96,10 @@ def main():
 
     st.write(f"Project `{project}`")
 
-    st.write("### Graph view")
+    st.write("### 🥇 Largest tables")
 
-    with st.spinner(f"Converting to graph data `{project}`"):
-        config, nodes, edges = get_graph_data(table_sizes_df)
-
-    # agraph(nodes, edges, config)
-
-    st.write("### Table view")
     st.write(
-        f"Below you'll find the 10 heaviest tables in your BigQuery project `{project}`:"
+        f"Below you'll find the 10 largest tables in your BigQuery project `{project}`:"
     )
     st.table(
         table_sizes_df[["project", "schema", "table", "size_in_gb"]]
@@ -113,6 +107,8 @@ def main():
         .sort_values(by="size_in_gb", ascending=False)
         .head(10)
     )
+
+    st.write("### ❓ Query")
 
     query_form = st.form(key="query_form")
     input_query_sql = query_form.text_area(
