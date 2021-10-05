@@ -3,41 +3,7 @@ from google.cloud import bigquery
 from google.oauth2 import service_account
 import pandas as pd
 import numpy as np
-from streamlit_agraph import agraph, TripleStore, Config, Node, Edge
 import itertools
-
-
-def get_graph_data(table_sizes_df, max_schemas=5, max_tables=15):
-
-    # Add schemas
-    schema_subset = table_sizes_df.schema.unique()[:max_schemas]
-    nodes = [Node(id=schema, size=200, color="red") for schema in schema_subset]
-
-    # Add tables
-    # TODO: Better filtering of max_tables. Should be max_tables per schema. `groupby().sample()` etc.
-    tables_subset = table_sizes_df.table.unique()[:max_tables]
-    nodes += [Node(id=table, size=100, color="blue") for table in tables_subset]
-
-    # Add schema -> table
-    edges = [
-        Edge(source=schema, target=table)
-        for schema, table in table_sizes_df[["schema", "table"]]
-        .drop_duplicates()
-        .values
-        if schema in schema_subset and table in tables_subset
-    ]
-
-    config = Config(
-        height=600,
-        width=600,
-        nodeHighlightBehavior=True,
-        highlightColor="#F7A7A6",
-        directed=True,
-        collapsible=True,
-        initialZoom=1.5,
-    )
-
-    return config, nodes, edges
 
 
 def main():
@@ -52,16 +18,15 @@ def main():
         _CLIENT = bigquery.Client(credentials=credentials)
 
     except Exception as e:
-        st.sidebar.error(
+        st.error(
             """Couldn't load your credentials.  
-            Did you have a look at our [tutorial on connecting to BigQuery](https://docs.streamlit.io/en/latest/tutorial/bigquery.html)?
-            """
+            Did you have a look at our tutorial?"""
         )
 
-        with st.sidebar.expander("👇 Read more about the error"):
+        with st.expander("👇 Read more about the error"):
             st.write(e)
 
-        return ""
+        st.stop()
 
     def get_project_schemas(project):
         query = f"SELECT * FROM {project}.INFORMATION_SCHEMA.SCHEMATA;"
