@@ -14,6 +14,7 @@ gsheetsdb = "*"
 streamlit-pandas-profiling = "*"
 millify = "*"
 supabase-py = "*"
+pyarrow = "*"
 
 [dev-packages]
 black = "*"  # Pretty formatting of Python code
