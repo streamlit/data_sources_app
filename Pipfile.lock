@@ -1685,7 +1685,7 @@
                 "sha256:f4d59fc4ad6a3241c8531d26f89c909c63984d46f86633a886523b4687bcfada"
             ],
             "index": "pypi",
-            "version": "==2.1.1"
+            "version": "==2.6.2"
         },
         "streamlit": {
             "hashes": [
