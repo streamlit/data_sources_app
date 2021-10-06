@@ -24,7 +24,8 @@ def main():
         connector = connect(**st.secrets["snowflake"], client_session_keep_alive=True)
         return connector
 
-    TTL = 60 * 60 * 60
+    # The maximum number of seconds to keep an entry in the cache
+    TTL = 24 * 60 * 60
 
     # Using `experimental_memo()` to memoize function executions
     @st.experimental_memo(ttl=TTL)
