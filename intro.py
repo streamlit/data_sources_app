@@ -6,22 +6,21 @@ INTRO_IDENTIFIER = "—"
 
 HOME_PAGE_TEXT = f""" ## Welcome to the 🔌 Data Sources app!
         
-This app is intended to show you how you can quickly connect Streamlit to your own data sources!  
+<img src="https://i.ibb.co/LzQPsLC/illustration.png" width="500px">
 
-Simply follow these steps:
 
-1. Fork this app 
+#### Streamlit makes it **super easy** to connect to your own data sources.  
+Follow these steps to discover how:
 
-2. Check out our [tutorial on connecting Streamlit to data sources]({TUTORIAL_URL}) and 
-fill in your Streamlit secrets with your data sources credentials.
+1. [Fork this app's repository](https://github.com/streamlit/data_sources_app/fork)
 
-3. Choose one data source in the panel on your left
-
-4. Uncover what Streamlit can make out of your data!
+2. 👈 Choose your preferred data source in the panel on your left
+- If you have already set up your secrets, the app will successfully connect 🎉 
+- Otherwise, don't worry, we have you covered! 😎 We'll guide you through our docs to learn how to fill in your data source credentials into Streamlit secrets!
 """
 
 
 def main():
-    st.write(HOME_PAGE_TEXT)
+    st.write(HOME_PAGE_TEXT, unsafe_allow_html=True)
     st.sidebar.success("Select a data source above.")
     st.session_state["active_page"] = INTRO_IDENTIFIER
