@@ -104,7 +104,24 @@ def connect(data_source):
         st.stop()
 
 
+def _dev_load_secrets():
+    import toml
+
+    with open(".streamlit/secrets.toml", encoding="utf-8") as f:
+        secrets_file_str = f.read()
+    secrets = toml.loads(secrets_file_str)
+    return secrets
+
+
 if __name__ == "__main__":
+
+    # ---- DEV ----
+    secrets = st.sidebar.selectbox("(Dev) Secrets are...", ["Full", "Empty"])
+
+    if secrets == "Full":
+        st.secrets = _dev_load_secrets()
+    elif secrets == "Empty":
+        st.secrets = dict()
 
     data_source = st.sidebar.selectbox(
         "Choose a data source",
