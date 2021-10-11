@@ -104,31 +104,7 @@ def connect(data_source):
         st.stop()
 
 
-def _dev_load_secrets():
-    import toml
-
-    with open(".streamlit/secrets.toml", encoding="utf-8") as f:
-        secrets_file_str = f.read()
-    secrets = toml.loads(secrets_file_str)
-    return secrets
-
-
 if __name__ == "__main__":
-
-    # ---- DEV ----
-    secrets = st.sidebar.selectbox(
-        "(Dev) Secrets are...", ["Full", "Corrupted", "Empty"]
-    )
-    if secrets == "Full":
-        st.secrets = _dev_load_secrets()
-    elif secrets == "Empty":
-        st.secrets = dict()
-    elif secrets == "Corrupted":
-        st.secrets["bigquery"]["private_key_id"] = ""
-        st.secrets["snowflake"]["user"] = ""
-        st.secrets["gsheets"]["public_gsheets_url"] = "aa"
-
-    # -------------
 
     data_source = st.sidebar.selectbox(
         "Choose a data source",
