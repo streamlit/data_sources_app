@@ -1,6 +1,7 @@
 import inspect
 import textwrap
 import streamlit as st
+from pathlib import Path
 
 from big_query_app import (
     main as big_query_app,
@@ -19,6 +20,7 @@ from google_sheet_app import (
 
 from intro import main as intro, INTRO_IDENTIFIER
 
+TUTORIALS_ROOT = Path("./tutorials")
 
 DATA_SOURCES = {
     INTRO_IDENTIFIER: {
@@ -27,6 +29,7 @@ DATA_SOURCES = {
         "docs_url": None,
         "app_path": "intro.py",
         "get_connector": None,
+        "docs_md_file_path": None,
     },
     "🔎 BigQuery": {
         "app": big_query_app,
@@ -34,6 +37,7 @@ DATA_SOURCES = {
         "docs_url": "https://docs.streamlit.io/en/latest/tutorial/bigquery.html",
         "app_path": "big_query_app.py",
         "get_connector": get_big_query_connector,
+        "docs_md_file_path": TUTORIALS_ROOT / "bigquery.md",
     },
     "❄️ Snowflake": {
         "app": snowflake_app,
@@ -41,6 +45,7 @@ DATA_SOURCES = {
         "docs_url": "https://docs.streamlit.io/en/latest/tutorial/snowflake.html",
         "app_path": "snowflake_app.py",
         "get_connector": get_snowflake_connector,
+        "docs_md_file_path": TUTORIALS_ROOT / "snowflake.md",
     },
     "📝 Public Google Sheet": {
         "app": google_sheet_app,
@@ -48,6 +53,7 @@ DATA_SOURCES = {
         "docs_url": "https://docs.streamlit.io/en/latest/tutorial/public_gsheet.html#connect-streamlit-to-a-public-google-sheet",
         "app_path": "google_sheet_app.py",
         "get_connector": get_google_sheet_connector,
+        "docs_md_file_path": TUTORIALS_ROOT / "public-gsheet.md",
     },
 }
 
@@ -62,6 +68,27 @@ We also display docs just below:"""
 
 def has_credentials_in_secrets(data_source) -> bool:
     return DATA_SOURCES[data_source]["secret_key"] in st.secrets
+
+
+def load_docs(data_source: str):
+    with open(DATA_SOURCES[data_source]["docs_md_file_path"], "r") as f:
+        docs = f.read()
+    return docs
+
+
+def show_docs_from_md(data_source: str):
+    docs = load_docs(data_source)
+    docs = (
+        docs.replace("/images/databases/", "tutorials/images/")
+        .replace("<Image", "<img")
+        .replace("<Flex>", "")
+        .replace("</Flex>", "")
+        .replace("<Important>", "")
+        .replace("</Important>", "")
+    )
+    print(docs)
+    st.image("tutorials/images/big-query-3.png")
+    st.markdown(docs)
 
 
 def show_docs_iframe(data_source: str):
@@ -79,6 +106,8 @@ def show_error_when_not_connected(data_source: str):
             DATA_SOURCES[data_source]["secret_key"],
         )
     )
+
+    show_docs_from_md(data_source)
 
 
 def connect(data_source):
@@ -100,7 +129,7 @@ def connect(data_source):
         with st.expander("👇 Read more about the error"):
             st.write(e)
 
-        show_docs_iframe(data_source)
+        # show_docs_iframe(data_source)
         st.stop()
 
 
@@ -116,12 +145,14 @@ def _dev_load_secrets():
 if __name__ == "__main__":
 
     # ---- DEV ----
-    secrets = st.sidebar.selectbox("(Dev) Secrets are...", ["Full", "Empty"])
+    secrets = st.sidebar.selectbox("(Dev) Secrets are...", ["Full", "Empty"], index=1)
 
     if secrets == "Full":
         st.secrets = _dev_load_secrets()
     elif secrets == "Empty":
         st.secrets = dict()
+
+    # -------------
 
     data_source = st.sidebar.selectbox(
         "Choose a data source",
