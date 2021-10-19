@@ -117,7 +117,7 @@ to create and download your service account file.""",
     )
 
     to_do_element(
-        """**Fill in the credentials inside Streamlit using Streamlit Secrets.**""",
+        """**Transform your credentials into `.toml` format.**""",
         "filled_in_secrets",
     )
 
@@ -173,12 +173,13 @@ client_email = ...
 
     load_keyboard_class()
     to_do_element(
-        f"""**Copy paste these `.toml` credentials into your Streamlit Secrets: **  
+        f"""**Finally, copy paste these `.toml` credentials into your Streamlit Secrets! **  
         You should click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")}""",
         "copy_pasted_secrets",
     )
 
-    st.video("./secrets.mov")
+    with st.expander("See video"):
+        st.video("./secrets.mov")
 
 
 def connect(data_source):
