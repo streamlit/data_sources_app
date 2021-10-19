@@ -104,15 +104,15 @@ def show_error_when_not_connected(data_source: str):
 
     to_do_element(
         """**Create a service account & key file.** To use the BigQuery API from Streamlit Cloud, 
-            you need a Google Cloud Platform service account (a special account type for programmatic 
-            data access). Go to the [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts)
-            page, choose a project and click <span class="kbdx"> CREATE SERVICE ACCOUNT </span>. You can restrict 
-            to the **Viewer** permission (this will let the account access data 
-            but not change it).<br><br>If that button is gray and unavailable, you don't have the correct 
-            permissions. Ask the admin of your Google Cloud project for help. <br><br> After clicking  <span class="kbdx">DONE</span>
-            , you should be back on the service accounts overview. Click on your service account, head over to 
-             <span class="kbdx"> Keys </span> > <span class="kbdx"> Add a key </span> > <span class="kbdx"> Create a key </span>
-             > <span class="kbdx"> JSON </span> to create and download your service account file.""",
+you need a Google Cloud Platform service account (a special account type for programmatic 
+data access). Go to the [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts)
+page, choose a project and click <span class="kbdx"> CREATE SERVICE ACCOUNT </span>. You can restrict 
+to the **Viewer** permission (this will let the account access data 
+but not change it).<br><br>If that button is gray and unavailable, you don't have the correct 
+permissions. Ask the admin of your Google Cloud project for help. <br><br> After clicking  <span class="kbdx">DONE</span>
+, you should be back on the service accounts overview. Click on your service account, head over to 
+<span class="kbdx"> Keys </span> > <span class="kbdx"> Add a key </span> > <span class="kbdx"> Create a key </span> > <span class="kbdx"> JSON </span> 
+to create and download your service account file.""",
         "service_account_created",
     )
 
