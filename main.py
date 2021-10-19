@@ -87,18 +87,18 @@ def show_error_when_not_connected(data_source: str):
         else:
             cols[1].write(text, unsafe_allow_html=True)
 
-    to_do_element(
-        """**Create a BigQuery database.** For this example, we will use one of the sample datasets from BigQuery 
-                (namely the shakespeare table). If you want to create a new dataset instead, 
-                follow [Google's quickstart guide](https://cloud.google.com/bigquery/docs/quickstarts/quickstart-web-ui).""",
-        "database_exists",
+    st.write(
+        """We assume that you have a BigQuery account already, and a database. If not, please
+    follow [Google's quickstart guide](https://cloud.google.com/bigquery/docs/quickstarts/quickstart-web-ui).
+    """
     )
 
     to_do_element(
         """**Enable the BigQuery API.** Programmatic access to BigQuery is controlled through [Google 
         Cloud Platform](https://cloud.google.com/). Create an account or sign in and head over to the [APIs 
-        & Services dashboard](https://console.cloud.google.com/apis/dashboard) (select or create a project 
-        if asked). Search for the BigQuery API and enable it.""",
+        & Services dashboard](https://console.cloud.google.com/apis/dashboard). If it's not already listed,
+         search for the [BigQuery API](https://console.cloud.google.com/marketplace/product/google/bigquery.googleapis.com)
+         and enable it.""",
         "bigquery_enabled",
     )
 
@@ -106,11 +106,13 @@ def show_error_when_not_connected(data_source: str):
         """**Create a service account & key file.** To use the BigQuery API from Streamlit Cloud, 
             you need a Google Cloud Platform service account (a special account type for programmatic 
             data access). Go to the [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts)
-            page, choose a project and create an account with the **Viewer** permission (this will let the account access data 
-            but not change it).<br><br>If the button `CREATE SERVICE ACCOUNT` is gray, you don't have the correct 
-            permissions. Ask the admin of your Google Cloud project for help. <br><br> After clicking `DONE`, you 
-            should be back on the service accounts overview. Click on your service account, head over to `Keys` > 
-            `Add a key` > `Create a key` > `JSON`. file for the new account and download it.""",
+            page, choose a project and click <span class="kbdx"> CREATE SERVICE ACCOUNT </span>. You can restrict 
+            to the **Viewer** permission (this will let the account access data 
+            but not change it).<br><br>If that button is gray and unavailable, you don't have the correct 
+            permissions. Ask the admin of your Google Cloud project for help. <br><br> After clicking  <span class="kbdx">DONE</span>
+            , you should be back on the service accounts overview. Click on your service account, head over to 
+             <span class="kbdx"> Keys </span> > <span class="kbdx"> Add a key </span> > <span class="kbdx"> Create a key </span>
+             > <span class="kbdx"> JSON </span> to create and download your service account file.""",
         "service_account_created",
     )
 
