@@ -14,23 +14,6 @@ importantly, we'll give you the sufficient code to kick-off an app that
 can interact with your own data!
 """
 
-REST = """
-**1. Fork this app**
-- [Fork this app's repository](https://github.com/streamlit/data_sources_app/fork)
-- Head over to the `/data_sources_app` directory and run `streamlit run streamlit_app.py`
-- You should be ab
-- 
-- Find your credentials and fill them in your Streamlit secrets
-      following the given template.
-- Congrats, you're connected! Copy paste our starter code
-      and start building your own app 🚀 
-
-Follow these steps to discover how:
-
-1. [Fork this app's repository](https://github.com/streamlit/data_sources_app/fork)
-
-"""
-
 
 def write(text, strike=False):
     if strike:
@@ -72,16 +55,16 @@ def main():
     with st.expander("Show instructions", expanded=False):
         st.write(
             """- [Fork the Data Sources app's repository](https://github.com/streamlit/data_sources_app/fork)
-    - Visit your [Streamlit dashboard](https://share.streamlit.io/) and click on <span class='kbdx'> New App </span>
-    - Fill in the form as follows:  
+- Visit your [Streamlit dashboard](https://share.streamlit.io/) and click on <span class='kbdx'> New App </span>
+- Fill in the form as follows:  
 
-        - Repository: `{your_github_username}/data_sources_app`  
-        - Branch: `dev`  
-        - Main file path: `main.py`
-    - Click on <span class='kbdx'> Deploy! </span>
+    - Repository: `{your_github_username}/data_sources_app`  
+    - Branch: `dev`  
+    - Main file path: `main.py`
+- Click on <span class='kbdx'> Deploy! </span>
 
-    Your app should now be running on Streamlit Cloud! 🎊  
-    **Close this tab, and switch to your app!**
+Your app should now be running on Streamlit Cloud! 🎊  
+**Close this tab, and switch to your app!**
         """,
             unsafe_allow_html=True,
         )
