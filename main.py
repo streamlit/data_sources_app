@@ -106,11 +106,11 @@ def show_error_when_not_connected(data_source: str):
         """**Create a service account & key file.** To use the BigQuery API from Streamlit Cloud, 
             you need a Google Cloud Platform service account (a special account type for programmatic 
             data access). Go to the [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts)
-            page and create an account with the **Viewer** permission (this will let the account access data 
+            page, choose a project and create an account with the **Viewer** permission (this will let the account access data 
             but not change it).<br><br>If the button `CREATE SERVICE ACCOUNT` is gray, you don't have the correct 
             permissions. Ask the admin of your Google Cloud project for help. <br><br> After clicking `DONE`, you 
-            should be back on the service accounts overview. Create a JSON key file for the new account and 
-            download it.""",
+            should be back on the service accounts overview. Click on your service account, head over to `Keys` > 
+            `Add a key` > `Create a key` > `JSON`. file for the new account and download it.""",
         "service_account_created",
     )
 
@@ -131,7 +131,7 @@ def show_error_when_not_connected(data_source: str):
         language="json",
     )
 
-    cols[0].caption("How your `.json` service account should look like.")
+    cols[0].caption("Your `.json` service account should look like that.")
 
     cols[1].code(
         """[bigquery]
