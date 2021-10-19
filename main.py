@@ -57,57 +57,126 @@ DATA_SOURCES = {
     },
 }
 
-ERROR_MESSAGE = """Unfortunately, no credentials were found for data source: `{}` in your Streamlit secrets.
-You can have a look at our [documentation]({}) 
-to read more about how to connect to databases.  
+ERROR_MESSAGE = """❌ Unfortunately, no credentials were found for data source: `{}` in your Streamlit secrets.
+If you have already filled in secrets and this error still shows, make sure the secrets are under the identifier '`{}`'.  
 
-If you have filled in secrets and this error still shows, make sure the secrets are under the identifier '`{}`'.  
-
-We also display docs just below:"""
+Otherwise, follow the to-do below:"""
 
 
 def has_credentials_in_secrets(data_source) -> bool:
     return DATA_SOURCES[data_source]["secret_key"] in st.secrets
 
 
-def load_docs(data_source: str):
-    with open(DATA_SOURCES[data_source]["docs_md_file_path"], "r") as f:
-        docs = f.read()
-    return docs
-
-
-def show_docs_from_md(data_source: str):
-    docs = load_docs(data_source)
-    docs = (
-        docs.replace("/images/databases/", "tutorials/images/")
-        .replace("<Image", "<img")
-        .replace("<Flex>", "")
-        .replace("</Flex>", "")
-        .replace("<Important>", "")
-        .replace("</Important>", "")
-    )
-    print(docs)
-    st.image("tutorials/images/big-query-3.png")
-    st.markdown(docs)
-
-
-def show_docs_iframe(data_source: str):
-    with st.expander("Open the documentation ⬇️"):
-        st.components.v1.iframe(
-            DATA_SOURCES[data_source]["docs_url"], height=600, scrolling=True
-        )
-
-
 def show_error_when_not_connected(data_source: str):
+
     st.error(
         ERROR_MESSAGE.format(
             data_source,
-            DATA_SOURCES[data_source]["docs_url"],
             DATA_SOURCES[data_source]["secret_key"],
         )
     )
 
-    show_docs_from_md(data_source)
+    def striken(text):
+        return "".join(chr(822) + t for t in text)
+
+    def to_do_element(text, checkbox_id):
+        cols = st.columns((1, 20))
+        done = cols[0].checkbox(" ", key=checkbox_id)
+        if done:
+            cols[1].write(f"<strike>{text}</strike>", unsafe_allow_html=True)
+        else:
+            cols[1].write(text, unsafe_allow_html=True)
+
+    to_do_element(
+        """**Create a BigQuery database.** For this example, we will use one of the sample datasets from BigQuery 
+                (namely the shakespeare table). If you want to create a new dataset instead, 
+                follow [Google's quickstart guide](https://cloud.google.com/bigquery/docs/quickstarts/quickstart-web-ui).""",
+        "database_exists",
+    )
+
+    to_do_element(
+        """**Enable the BigQuery API.** Programmatic access to BigQuery is controlled through [Google 
+        Cloud Platform](https://cloud.google.com/). Create an account or sign in and head over to the [APIs 
+        & Services dashboard](https://console.cloud.google.com/apis/dashboard) (select or create a project 
+        if asked). Search for the BigQuery API and enable it.""",
+        "bigquery_enabled",
+    )
+
+    to_do_element(
+        """**Create a service account & key file.** To use the BigQuery API from Streamlit Cloud, 
+            you need a Google Cloud Platform service account (a special account type for programmatic 
+            data access). Go to the [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts)
+            page and create an account with the **Viewer** permission (this will let the account access data 
+            but not change it).<br><br>If the button `CREATE SERVICE ACCOUNT` is gray, you don't have the correct 
+            permissions. Ask the admin of your Google Cloud project for help. <br><br> After clicking `DONE`, you 
+            should be back on the service accounts overview. Create a JSON key file for the new account and 
+            download it.""",
+        "service_account_created",
+    )
+
+    to_do_element(
+        """**Fill in the credentials inside Streamlit using Streamlit Secrets.**""",
+        "filled_in_secrets",
+    )
+
+    cols = st.columns(2)
+    cols[0].code(
+        """{
+"type": "service_account",
+"project_id": ...
+"private_key_id": ...
+"private_key": ...
+"client_email": ...
+...""",
+        language="json",
+    )
+
+    cols[0].caption("How your `.json` service account should look like.")
+
+    cols[1].code(
+        """[bigquery]
+type = "service_account"
+project_id = ...
+private_key_id = ...
+private_key = ...
+client_email = ...
+...""",
+        language="toml",
+    )
+
+    cols[1].caption("👈 Change this into `.toml` format")
+
+    def load_keyboard_class():
+        st.write(
+            """<style>
+        .kbdx {
+        background-color: #eee;
+        border-radius: 3px;
+        border: 1px solid #b4b4b4;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
+        color: #333;
+        display: inline-block;
+        font-size: .85em;
+        font-weight: 700;
+        line-height: 1;
+        padding: 2px 4px;
+        white-space: nowrap;
+    }
+    </style>""",
+            unsafe_allow_html=True,
+        )
+
+    def to_button(text):
+        return f'<span class="kbdx">{text}</span>'
+
+    load_keyboard_class()
+    to_do_element(
+        f"""**Copy paste these `.toml` credentials into your Streamlit Secrets: **  
+        You should click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")}""",
+        "copy_pasted_secrets",
+    )
+
+    st.video("./secrets.mov")
 
 
 def connect(data_source):
@@ -129,7 +198,6 @@ def connect(data_source):
         with st.expander("👇 Read more about the error"):
             st.write(e)
 
-        # show_docs_iframe(data_source)
         st.stop()
 
 
@@ -144,9 +212,10 @@ def _dev_load_secrets():
 
 if __name__ == "__main__":
 
-    # ---- DEV ----
-    secrets = st.sidebar.selectbox("(Dev) Secrets are...", ["Full", "Empty"], index=1)
+    st.set_page_config(layout="centered")
 
+    # ---- DEV ----
+    secrets = st.sidebar.selectbox("(Dev) Secrets are...", ["Full", "Empty"])
     if secrets == "Full":
         st.secrets = _dev_load_secrets()
     elif secrets == "Empty":
@@ -172,15 +241,16 @@ if __name__ == "__main__":
         show_code = True
         show_balloons = True
 
+        st.write(f"### You have chosen to connect to **{data_source}**. Let's do it!")
+
         # First, look for credentials in the secrets
         has_credentials = has_credentials_in_secrets(data_source)
 
         if has_credentials:
-            st.sidebar.success("✔ Connected.")
+            st.sidebar.success("✔ Found credentials!")
         else:
-            st.sidebar.error("❌ Not connected.")
+            st.sidebar.error("❌ Could not find credentials in your Streamlit Secrets.")
             show_error_when_not_connected(data_source)
-            show_docs_iframe(data_source)
             st.stop()
 
         # Then, check if one can successfully connect using the secrets
