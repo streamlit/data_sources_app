@@ -8,11 +8,10 @@ HOME_PAGE_TEXT = f""" ## Welcome to the 🔌 Data Sources app!
 
 #### Streamlit makes it **super easy** to connect to your own data sources.  
 
-This app is here to help you **connect your Streamlit app to your 
-data sources.** In order to do so, you'll need to fill in your data 
-source credentials into your Streamlit Secrets first! 
-
-Don't worry, we got you covered!
+In this app, we'll show you how to collect your data source credentials 
+and safely add them in your Streamlit app using 🔑 Streamlit Secrets. Most 
+importantly, we'll give you the sufficient code to kick-off an app that 
+can interact with your own data!
 """
 
 REST = """
@@ -77,12 +76,12 @@ def main():
     - Fill in the form as follows:  
 
         - Repository: `{your_github_username}/data_sources_app`  
-        - Branch: `main`  
+        - Branch: `dev`  
         - Main file path: `main.py`
     - Click on <span class='kbdx'> Deploy! </span>
 
-    Your app should now be running on share.streamlit.io 🎊  
-    Close this tab, and switch to your app!
+    Your app should now be running on Streamlit Cloud! 🎊  
+    **Close this tab, and switch to your app!**
         """,
             unsafe_allow_html=True,
         )
