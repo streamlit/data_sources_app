@@ -54,7 +54,6 @@ def get_connector():
 
 
 def tutorial():
-
     st.write(
         """We assume that you have a BigQuery account already, and a database. If not, please
     follow [Google's quickstart guide](https://cloud.google.com/bigquery/docs/quickstarts/quickstart-web-ui).
