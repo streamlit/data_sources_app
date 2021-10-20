@@ -46,20 +46,20 @@ DATA_SOURCES = {
     client_email = ...
     ...""",
     },
-    "❄️ Snowflake": {
-        "app": snowflake_app,
-        "secret_key": "snowflake",
-        "docs_url": "https://docs.streamlit.io/en/latest/tutorial/snowflake.html",
-        "app_path": "snowflake_app.py",
-        "get_connector": get_snowflake_connector,
-    },
-    "📝 Public Google Sheet": {
-        "app": google_sheet_app,
-        "secret_key": "gsheets",
-        "docs_url": "https://docs.streamlit.io/en/latest/tutorial/public_gsheet.html#connect-streamlit-to-a-public-google-sheet",
-        "app_path": "google_sheet_app.py",
-        "get_connector": get_google_sheet_connector,
-    },
+    # "❄️ Snowflake": {
+    #     "app": snowflake_app,
+    #     "secret_key": "snowflake",
+    #     "docs_url": "https://docs.streamlit.io/en/latest/tutorial/snowflake.html",
+    #     "app_path": "snowflake_app.py",
+    #     "get_connector": get_snowflake_connector,
+    # },
+    # "📝 Public Google Sheet": {
+    #     "app": google_sheet_app,
+    #     "secret_key": "gsheets",
+    #     "docs_url": "https://docs.streamlit.io/en/latest/tutorial/public_gsheet.html#connect-streamlit-to-a-public-google-sheet",
+    #     "app_path": "google_sheet_app.py",
+    #     "get_connector": get_google_sheet_connector,
+    # },
 }
 
 ERROR_MESSAGE = """❌ No credentials were found for '`{}`' in your Streamlit Secrets.  
