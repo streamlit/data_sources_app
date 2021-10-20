@@ -6,12 +6,15 @@ INTRO_IDENTIFIER = "—"
 
 HOME_PAGE_TEXT = f""" ## Welcome to the 🔌 Data Sources app!
 
-#### Streamlit makes it **super easy** to connect to your own data sources.  
+Congratulations, you have successfully forked and deployed this app 🎊  
 
-In this app, we'll show you how to collect your data source credentials 
-and safely add them in your Streamlit app using 🔑 Streamlit Secrets. Most 
-importantly, we'll give you the sufficient code to kick-off an app that 
-can interact with your own data!
+We'll now help you:
+- Collect your credentials and safely add them to your 🔑 Streamlit Secrets
+- Get started with your own app by providing you with sufficient code 🚀 
+
+**Ready?**
+
+👈 Choose the data source you want to work with
 """
 
 
@@ -47,30 +50,3 @@ def main():
     load_keyboard_class()
 
     st.write(HOME_PAGE_TEXT, unsafe_allow_html=True)
-
-    st.markdown(
-        "**1. Fork and deploy this app** in your own workspace in Streamlit Cloud 🎈",
-    )
-
-    with st.expander("Show instructions", expanded=False):
-        st.write(
-            """- [Fork the Data Sources app's repository](https://github.com/streamlit/data_sources_app/fork)
-- Visit your [Streamlit dashboard](https://share.streamlit.io/) and click on <span class='kbdx'> New App </span>
-- Fill in the form as follows:  
-
-    - Repository: `{your_github_username}/data_sources_app`  
-    - Branch: `dev`  
-    - Main file path: `main.py`
-- Click on <span class='kbdx'> Deploy! </span>
-
-Your app should now be running on Streamlit Cloud! 🎊  
-**Close this tab, and switch to your app!**
-        """,
-            unsafe_allow_html=True,
-        )
-
-    st.markdown(
-        """**2. Choose a data source!**
-    
-👈 Choose the data source you want to work with"""
-    )

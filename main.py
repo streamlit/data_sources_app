@@ -6,6 +6,7 @@ from pathlib import Path
 from big_query_app import (
     main as big_query_app,
     get_connector as get_big_query_connector,
+    tutorial as big_query_tutorial,
 )
 
 from snowflake_app import (
@@ -19,8 +20,7 @@ from google_sheet_app import (
 )
 
 from intro import main as intro, INTRO_IDENTIFIER
-
-TUTORIALS_ROOT = Path("./tutorials")
+from ui import load_keyboard_class
 
 DATA_SOURCES = {
     INTRO_IDENTIFIER: {
@@ -37,7 +37,14 @@ DATA_SOURCES = {
         "docs_url": "https://docs.streamlit.io/en/latest/tutorial/bigquery.html",
         "app_path": "big_query_app.py",
         "get_connector": get_big_query_connector,
-        "docs_md_file_path": TUTORIALS_ROOT / "bigquery.md",
+        "tutorial": big_query_tutorial,
+        "secrets_template": """[bigquery]
+    type = "service_account"
+    project_id = ...
+    private_key_id = ...
+    private_key = ...
+    client_email = ...
+    ...""",
     },
     "❄️ Snowflake": {
         "app": snowflake_app,
@@ -45,7 +52,6 @@ DATA_SOURCES = {
         "docs_url": "https://docs.streamlit.io/en/latest/tutorial/snowflake.html",
         "app_path": "snowflake_app.py",
         "get_connector": get_snowflake_connector,
-        "docs_md_file_path": TUTORIALS_ROOT / "snowflake.md",
     },
     "📝 Public Google Sheet": {
         "app": google_sheet_app,
@@ -53,133 +59,36 @@ DATA_SOURCES = {
         "docs_url": "https://docs.streamlit.io/en/latest/tutorial/public_gsheet.html#connect-streamlit-to-a-public-google-sheet",
         "app_path": "google_sheet_app.py",
         "get_connector": get_google_sheet_connector,
-        "docs_md_file_path": TUTORIALS_ROOT / "public-gsheet.md",
     },
 }
 
-ERROR_MESSAGE = """❌ Unfortunately, no credentials were found for data source: `{}` in your Streamlit secrets.
-If you have already filled in secrets and this error still shows, make sure the secrets are under the identifier '`{}`'.  
-
-Otherwise, follow the to-do below:"""
+ERROR_MESSAGE = """❌ No credentials were found for '`{}`' in your Streamlit Secrets.  
+Please follow our [tutorial](#tutorial) or make sure that your secrets look like the following:
+```toml
+{}
+```"""
 
 
 def has_credentials_in_secrets(data_source) -> bool:
     return DATA_SOURCES[data_source]["secret_key"] in st.secrets
 
 
+def has_empty_secrets() -> bool:
+    return not bool(st.secrets)
+
+
 def show_error_when_not_connected(data_source: str):
 
     st.error(
         ERROR_MESSAGE.format(
-            data_source,
             DATA_SOURCES[data_source]["secret_key"],
+            DATA_SOURCES[data_source]["secrets_template"],
         )
     )
 
-    def striken(text):
-        return "".join(chr(822) + t for t in text)
-
-    def to_do_element(text, checkbox_id):
-        cols = st.columns((1, 20))
-        done = cols[0].checkbox(" ", key=checkbox_id)
-        if done:
-            cols[1].write(f"<strike>{text}</strike>", unsafe_allow_html=True)
-        else:
-            cols[1].write(text, unsafe_allow_html=True)
-
-    st.write(
-        """We assume that you have a BigQuery account already, and a database. If not, please
-    follow [Google's quickstart guide](https://cloud.google.com/bigquery/docs/quickstarts/quickstart-web-ui).
-    """
-    )
-
-    to_do_element(
-        """**Enable the BigQuery API.** Programmatic access to BigQuery is controlled through [Google 
-        Cloud Platform](https://cloud.google.com/). Create an account or sign in and head over to the [APIs 
-        & Services dashboard](https://console.cloud.google.com/apis/dashboard). If it's not already listed,
-         search for the [BigQuery API](https://console.cloud.google.com/marketplace/product/google/bigquery.googleapis.com)
-         and enable it.""",
-        "bigquery_enabled",
-    )
-
-    to_do_element(
-        """**Create a service account & key file.** To use the BigQuery API from Streamlit Cloud, 
-you need a Google Cloud Platform service account (a special account type for programmatic 
-data access). Go to the [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts)
-page, choose a project and click <span class="kbdx"> CREATE SERVICE ACCOUNT </span>. You can restrict 
-to the **Viewer** permission (this will let the account access data 
-but not change it).<br><br>If that button is gray and unavailable, you don't have the correct 
-permissions. Ask the admin of your Google Cloud project for help. <br><br> After clicking  <span class="kbdx">DONE</span>
-, you should be back on the service accounts overview. Click on your service account, head over to 
-<span class="kbdx"> Keys </span> > <span class="kbdx"> Add a key </span> > <span class="kbdx"> Create a key </span> > <span class="kbdx"> JSON </span> 
-to create and download your service account file.""",
-        "service_account_created",
-    )
-
-    to_do_element(
-        """**Transform your credentials into `.toml` format.**""",
-        "filled_in_secrets",
-    )
-
-    cols = st.columns(2)
-    cols[0].code(
-        """{
-"type": "service_account",
-"project_id": ...
-"private_key_id": ...
-"private_key": ...
-"client_email": ...
-...""",
-        language="json",
-    )
-
-    cols[0].caption("Your `.json` service account should look like that.")
-
-    cols[1].code(
-        """[bigquery]
-type = "service_account"
-project_id = ...
-private_key_id = ...
-private_key = ...
-client_email = ...
-...""",
-        language="toml",
-    )
-
-    cols[1].caption("👈 Change this into `.toml` format")
-
-    def load_keyboard_class():
-        st.write(
-            """<style>
-        .kbdx {
-        background-color: #eee;
-        border-radius: 3px;
-        border: 1px solid #b4b4b4;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
-        color: #333;
-        display: inline-block;
-        font-size: .85em;
-        font-weight: 700;
-        line-height: 1;
-        padding: 2px 4px;
-        white-space: nowrap;
-    }
-    </style>""",
-            unsafe_allow_html=True,
-        )
-
-    def to_button(text):
-        return f'<span class="kbdx">{text}</span>'
-
+    st.write("### Tutorial")
     load_keyboard_class()
-    to_do_element(
-        f"""**Finally, copy paste these `.toml` credentials into your Streamlit Secrets! **  
-        You should click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")}""",
-        "copy_pasted_secrets",
-    )
-
-    with st.expander("See video"):
-        st.video("./secrets.mov")
+    DATA_SOURCES[data_source]["tutorial"]()
 
 
 def connect(data_source):
@@ -226,15 +135,18 @@ if __name__ == "__main__":
         show_code = True
         show_balloons = True
 
-        st.write(f"### You have chosen to connect to **{data_source}**. Let's do it!")
+        st.write(
+            f"""<h3 style='margin-bottom:.5cm'> Connecting to {data_source}... </h3>""",
+            unsafe_allow_html=True,
+        )
 
         # First, look for credentials in the secrets
         has_credentials = has_credentials_in_secrets(data_source)
 
         if has_credentials:
-            st.sidebar.success("✔ Found credentials!")
+            st.sidebar.success("✔ Connected!")
         else:
-            st.sidebar.error("❌ Could not find credentials in your Streamlit Secrets.")
+            st.sidebar.error("❌ Could not connect.")
             show_error_when_not_connected(data_source)
             st.stop()
 
