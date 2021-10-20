@@ -63,7 +63,7 @@ DATA_SOURCES = {
 }
 
 ERROR_MESSAGE = """❌ No credentials were found for '`{}`' in your Streamlit Secrets.  
-Please follow our [tutorial](#tutorial) or make sure that your secrets look like the following:
+Please follow our [tutorial](#tutorial-connecting-to-bigquery) or make sure that your secrets look like the following:
 ```toml
 {}
 ```"""
