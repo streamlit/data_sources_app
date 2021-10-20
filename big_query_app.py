@@ -124,7 +124,7 @@ def main():
         query = f"SELECT * FROM {project}.INFORMATION_SCHEMA.SCHEMATA;"
         return _connector.query(query).to_dataframe()
 
-    st.markdown(f"## 🔎 Connecting to Big Query")
+    st.markdown(f"## 🔎 Big Query app")
 
     big_query_connector = get_connector()
 

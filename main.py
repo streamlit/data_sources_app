@@ -69,12 +69,16 @@ Please follow our [tutorial](#tutorial-connecting-to-bigquery) or make sure that
 ```"""
 
 
-def has_credentials_in_secrets(data_source) -> bool:
+def has_credentials_in_secrets(data_source: str) -> bool:
     return DATA_SOURCES[data_source]["secret_key"] in st.secrets
 
 
-def has_empty_secrets() -> bool:
-    return not bool(st.secrets)
+def show_success(data_source: str):
+    st.success(
+        f"""👏 Congrats! You have successfully filled in your Streamlit Secrets for {data_source}.  
+    Below, you'll find a [sample app](#big-query-app) and its associated [source code](#code).  
+    So go ahead, copy paste the code and kick-off your own app! 🚀 """
+    )
 
 
 def show_error_when_not_connected(data_source: str):
@@ -140,6 +144,7 @@ if __name__ == "__main__":
 
         if has_credentials:
             st.sidebar.success("✔ Connected!")
+            show_success(data_source)
         else:
             st.sidebar.error("❌ Could not connect.")
             show_error_when_not_connected(data_source)
