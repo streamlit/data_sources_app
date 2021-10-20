@@ -90,11 +90,9 @@ def tutorial():
     )
 
     to_do(
-        [(st.write, TUTORIAL_4)],
+        [(st.write, TUTORIAL_4), (st.image, "arrow.png")],
         "copy_pasted_secrets",
     )
-
-    st.image("arrow.png")
 
 
 def main():
