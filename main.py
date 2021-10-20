@@ -86,7 +86,7 @@ def show_error_when_not_connected(data_source: str):
         )
     )
 
-    st.write("### Tutorial")
+    st.write(f"### Tutorial: connecting to {data_source}")
     load_keyboard_class()
     DATA_SOURCES[data_source]["tutorial"]()
 
@@ -134,11 +134,6 @@ if __name__ == "__main__":
     else:
         show_code = True
         show_balloons = True
-
-        st.write(
-            f"""<h3 style='margin-bottom:.5cm'> Connecting to {data_source}... </h3>""",
-            unsafe_allow_html=True,
-        )
 
         # First, look for credentials in the secrets
         has_credentials = has_credentials_in_secrets(data_source)
