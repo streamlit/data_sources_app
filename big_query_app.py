@@ -65,7 +65,7 @@ def tutorial():
     to_do(
         [
             (st.write, TUTORIAL_1),
-            (st.image, "tutorials/images/big-query-3.png"),
+            (st.image, "tutorials/images/big-query-3.png", None, 300),
         ],
         "bigquery_enabled",
     )
@@ -73,10 +73,10 @@ def tutorial():
     to_do(
         [
             (st.write, TUTORIAL_2_1),
-            (st.image, "tutorials/images/big-query-4.png"),
+            (st.image, "tutorials/images/big-query-4.png", None, 300),
             (st.caption, TUTORIAL_2_2),
             (st.write, TUTORIAL_2_3),
-            (st.image, "tutorials/images/big-query-8.png"),
+            (st.image, "tutorials/images/big-query-8.png", None, 300),
         ],
         "service_account_created",
     )
