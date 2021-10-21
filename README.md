@@ -1,3 +1,5 @@
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/streamlit/cheat_sheet_app/main)
+
 # Streamlit demo: 🔌 The Data Sources app
 
 Streamlit makes it **super easy** to connect your apps to your data sources. With this app, we'll show you the way!
