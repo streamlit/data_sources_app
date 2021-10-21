@@ -1,4 +1,4 @@
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/streamlit/cheat_sheet_app/main)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/streamlit/data_sources_app/main)
 
 # Streamlit demo: 🔌 The Data Sources app
 
@@ -12,8 +12,8 @@ Streamlit makes it **super easy** to connect your apps to your data sources. Wit
 - Fill the form:  
 
     - Repository: `{your_github_username}/data_sources_app`  
-    - Branch: `dev`  
-    - Main file path: `main.py`
+    - Branch: `main`  
+    - Main file path: `streamlit_app.py`
 - Click on <kbd> Deploy! </kbd>
 
 Congrats! Your app is now running on Streamlit Cloud 🎊  
