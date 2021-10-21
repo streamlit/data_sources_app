@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-streamlit = "*"
 google-cloud-bigquery = "*"
 matplotlib = "*"
 streamlit-agraph = "*"
@@ -15,6 +14,7 @@ streamlit-pandas-profiling = "*"
 millify = "*"
 supabase-py = "*"
 pyarrow = "*"
+streamlit-nightly = "*"
 
 [dev-packages]
 black = "*"  # Pretty formatting of Python code

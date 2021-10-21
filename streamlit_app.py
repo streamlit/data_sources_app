@@ -1,84 +1,76 @@
 import inspect
 import textwrap
 import streamlit as st
+from pathlib import Path
 
-from big_query_app import (
-    main as big_query_app,
-    get_connector as get_big_query_connector,
-)
+import data_sources
+from data_sources import big_query
 
-from snowflake_app import (
-    main as snowflake_app,
-    get_connector as get_snowflake_connector,
-)
-
-from google_sheet_app import (
-    main as google_sheet_app,
-    get_connector as get_google_sheet_connector,
-)
-
-from intro import main as intro, INTRO_IDENTIFIER
-
+from utils import ui, intro
 
 DATA_SOURCES = {
-    INTRO_IDENTIFIER: {
-        "app": intro,
+    intro.INTRO_IDENTIFIER: {
+        "module": intro,
         "secret_key": None,
         "docs_url": None,
-        "app_path": "intro.py",
         "get_connector": None,
     },
-    "🔎 BigQuery": {
-        "app": big_query_app,
+    "🔎  BigQuery": {
+        "module": data_sources.big_query,
         "secret_key": "bigquery",
         "docs_url": "https://docs.streamlit.io/en/latest/tutorial/bigquery.html",
-        "app_path": "big_query_app.py",
-        "get_connector": get_big_query_connector,
+        "get_connector": data_sources.big_query.get_connector,
+        "tutorial": data_sources.big_query.tutorial,
+        "secrets_template": data_sources.big_query.TOML_SERVICE_ACCOUNT,
     },
-    "❄️ Snowflake": {
-        "app": snowflake_app,
-        "secret_key": "snowflake",
-        "docs_url": "https://docs.streamlit.io/en/latest/tutorial/snowflake.html",
-        "app_path": "snowflake_app.py",
-        "get_connector": get_snowflake_connector,
-    },
-    "📝 Public Google Sheet": {
-        "app": google_sheet_app,
-        "secret_key": "gsheets",
-        "docs_url": "https://docs.streamlit.io/en/latest/tutorial/public_gsheet.html#connect-streamlit-to-a-public-google-sheet",
-        "app_path": "google_sheet_app.py",
-        "get_connector": get_google_sheet_connector,
-    },
+    #
+    # (Currently disregarding other data sources)
+    #
+    # "❄️ Snowflake": {
+    #     "app": ds.snowflake_app.main,
+    #     "secret_key": "snowflake",
+    #     "docs_url": "https://docs.streamlit.io/en/latest/tutorial/snowflake.html",
+    #     "get_connector": ds.snowflake_app.get_connector,
+    # },
+    # "📝 Public Google Sheet": {
+    #     "app": google_sheet_app,
+    #     "secret_key": "gsheets",
+    #     "docs_url": "https://docs.streamlit.io/en/latest/tutorial/public_gsheet.html#connect-streamlit-to-a-public-google-sheet",
+    #     "get_connector": ds.google_sheet_app.get_connector,
+    # },
 }
 
-ERROR_MESSAGE = """Unfortunately, no credentials were found for data source: `{}` in your Streamlit secrets.
-You can have a look at our [documentation]({}) 
-to read more about how to connect to databases.  
-
-If you have filled in secrets and this error still shows, make sure the secrets are under the identifier '`{}`'.  
-
-We also display docs just below:"""
+ERROR_MESSAGE = """❌ No credentials were found for '`{}`' in your Streamlit Secrets.  
+Please follow our [tutorial](#tutorial-connecting-to-bigquery) or make sure that your secrets look like the following:
+```toml
+{}
+```"""
 
 
-def has_credentials_in_secrets(data_source) -> bool:
+def has_credentials_in_secrets(data_source: str) -> bool:
     return DATA_SOURCES[data_source]["secret_key"] in st.secrets
 
 
-def show_docs_iframe(data_source: str):
-    with st.expander("Open the documentation ⬇️"):
-        st.components.v1.iframe(
-            DATA_SOURCES[data_source]["docs_url"], height=600, scrolling=True
-        )
+def show_success(data_source: str):
+    st.success(
+        f"""👏 Congrats! You have successfully filled in your Streamlit Secrets for {data_source}.  
+    Below, you'll find a [sample app](#big-query-app) and its associated [source code](#code).  
+    So go ahead, copy paste the code and kick-off your own app! 🚀 """
+    )
 
 
 def show_error_when_not_connected(data_source: str):
+
     st.error(
         ERROR_MESSAGE.format(
-            data_source,
-            DATA_SOURCES[data_source]["docs_url"],
             DATA_SOURCES[data_source]["secret_key"],
+            DATA_SOURCES[data_source]["secrets_template"],
         )
     )
+
+    st.write(f"### Tutorial: connecting to {data_source}")
+    ui.load_keyboard_class()
+    DATA_SOURCES[data_source]["tutorial"]()
 
 
 def connect(data_source):
@@ -100,11 +92,12 @@ def connect(data_source):
         with st.expander("👇 Read more about the error"):
             st.write(e)
 
-        show_docs_iframe(data_source)
         st.stop()
 
 
 if __name__ == "__main__":
+
+    st.set_page_config(layout="centered")
 
     data_source = st.sidebar.selectbox(
         "Choose a data source",
@@ -116,7 +109,7 @@ if __name__ == "__main__":
     if "data_sources_already_connected" not in st.session_state:
         st.session_state.data_sources_already_connected = list()
 
-    if data_source == INTRO_IDENTIFIER:
+    if data_source == intro.INTRO_IDENTIFIER:
         show_code = False
         show_balloons = False
 
@@ -128,11 +121,11 @@ if __name__ == "__main__":
         has_credentials = has_credentials_in_secrets(data_source)
 
         if has_credentials:
-            st.sidebar.success("✔ Connected.")
+            st.sidebar.success("✔ Connected!")
+            show_success(data_source)
         else:
-            st.sidebar.error("❌ Not connected.")
+            st.sidebar.error("❌ Could not connect.")
             show_error_when_not_connected(data_source)
-            show_docs_iframe(data_source)
             st.stop()
 
         # Then, check if one can successfully connect using the secrets
@@ -148,7 +141,7 @@ if __name__ == "__main__":
         st.balloons()
 
     # Display data source app
-    data_source_app = DATA_SOURCES[st.session_state["active_page"]]["app"]
+    data_source_app = DATA_SOURCES[st.session_state["active_page"]]["module"].app
     data_source_app()
 
     # Show source code
