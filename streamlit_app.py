@@ -70,7 +70,11 @@ WHAT_NEXT = """## What next?
 Kick-off your own app now! 🚀 
 
 Above, we provided you with sufficient code to create an app that can take 
-advantage of your data. Paste it into a new Python script and use it as a starter! 
+advantage of your data. Create a new repo, paste that code into a new Python 
+script and use it as a starter! 
+
+⚠️ Remember to use the same `pipenv` environment as in this repository (i.e. copy paste 
+the files `Pipfile` and `Pipfile.lock`).
 
 🤔 Stuck? Check out our docs on [creating](https://docs.streamlit.io/library/get-started/create-an-app) 
 and [deploying](https://docs.streamlit.io/streamlit-cloud/get-started/deploy-an-app) an app or reach out to 
