@@ -27,8 +27,8 @@ FILE_PATH = f"utils/{FILE_NAME}"
 
 CREATE_ACCESS_KEYS = f"""**Create an access key**  
 Go to the [AWS console](https://console.aws.amazon.com/) and under your user name selector, 
-click on {to_button("My Security Credentials")}.  
-On the new page, you will be able to click on {to_button("Create New Access Key")}.  
+click on {to_button("My Security Credentials")}  
+On the new page, you will be able to click on {to_button("Create New Access Key")}  
 Now copy the "Access Key ID" and "Secret Access Key".
 """
 
