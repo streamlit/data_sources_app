@@ -10,11 +10,8 @@ streamlit-agraph = "*"
 snowflake-connector-python = "*"
 google-api-python-client = "*"
 gsheetsdb = "*"
-streamlit-pandas-profiling = "*"
-millify = "*"
 supabase-py = "*"
 pyarrow = "*"
-streamlit-nightly = "*"
 
 [dev-packages]
 black = "*"  # Pretty formatting of Python code
