@@ -52,7 +52,10 @@ TOML_SERVICE_ACCOUNT = """[bigquery]
     ..."""
 
 
-@st.experimental_singleton()
+# @st.experimental_singleton()
+# We intendedly do not cache the connector in the actual data sources app
+# so that if secrets are removed, the error is shown and we don't use
+# the connector from cache
 def get_connector():
     """ Create a connector to BigQuery using credentials filled in Streamlit secrets """
     credentials = Credentials.from_service_account_info(st.secrets["bigquery"])
