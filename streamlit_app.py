@@ -67,14 +67,13 @@ Check the exception below 👇
 
 WHAT_NEXT = """## What next?
 
-Kick-off your own app now! 🚀 
+🚀 Kick-off your own app now!  
 
-Above, we provided you with sufficient code to create an app that can take 
-advantage of your data. Create a new repo, paste that code into a new Python 
-script and use it as a starter! 
+- Create a new repository
+- Paste the code above into a new file `streamlit_app.py` and use it as a starter! 
+- Include the files `Pipfile` and `Pipfile.lock` in your repository too so as to ensure the dependencies as managed
 
-⚠️ Remember to use the same `pipenv` environment as in this repository (i.e. copy paste 
-the files `Pipfile` and `Pipfile.lock`).
+And you're ready to go!
 
 🤔 Stuck? Check out our docs on [creating](https://docs.streamlit.io/library/get-started/create-an-app) 
 and [deploying](https://docs.streamlit.io/streamlit-cloud/get-started/deploy-an-app) an app or reach out to 
