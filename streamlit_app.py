@@ -4,7 +4,7 @@ import streamlit as st
 from pathlib import Path
 
 import data_sources
-from data_sources import big_query
+from data_sources import big_query, snowflake, aws_s3
 
 from utils import ui, intro
 
@@ -18,21 +18,32 @@ DATA_SOURCES = {
     "🔎  BigQuery": {
         "module": data_sources.big_query,
         "secret_key": "bigquery",
-        "docs_url": "https://docs.streamlit.io/en/latest/tutorial/bigquery.html",
+        "docs_url": "https://docs.streamlit.io/knowledge-base/tutorials/databases/bigquery",
         "get_connector": data_sources.big_query.get_connector,
         "tutorial": data_sources.big_query.tutorial,
         "tutorial_anchor": "#tutorial-connecting-to-bigquery",
         "secrets_template": data_sources.big_query.TOML_SERVICE_ACCOUNT,
     },
+    "❄️ Snowflake": {
+        "module": data_sources.snowflake,
+        "secret_key": "snowflake",
+        "docs_url": "https://docs.streamlit.io/knowledge-base/tutorials/databases/snowflake",
+        "get_connector": data_sources.snowflake.get_connector,
+        "tutorial": data_sources.snowflake.tutorial,
+        "tutorial_anchor": "#tutorial-connecting-to-snowflake",
+        "secrets_template": data_sources.snowflake.TOML_SERVICE_ACCOUNT,
+    },
+    "📦 AWS S3 (WIP)": {
+        "module": data_sources.aws_s3,
+        "secret_key": "aws_s3",
+        "docs_url": "https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3",
+        "get_connector": data_sources.aws_s3.get_connector,
+        "tutorial": data_sources.aws_s3.tutorial,
+        "tutorial_anchor": "#tutorial-connecting-to-aws-s3",
+        "secrets_template": data_sources.aws_s3.TOML_SERVICE_ACCOUNT,
+    },
     #
     # (Currently disregarding other data sources)
-    #
-    # "❄️ Snowflake": {
-    #     "app": ds.snowflake_app.main,
-    #     "secret_key": "snowflake",
-    #     "docs_url": "https://docs.streamlit.io/en/latest/tutorial/snowflake.html",
-    #     "get_connector": ds.snowflake_app.get_connector,
-    # },
     # "📝 Public Google Sheet": {
     #     "app": google_sheet_app,
     #     "secret_key": "gsheets",
@@ -82,8 +93,8 @@ def show_error_when_not_connected(data_source: str):
 
     st.error(
         NO_CREDENTIALS_FOUND.format(
-            DATA_SOURCES[data_source]["tutorial_anchor"],
             DATA_SOURCES[data_source]["secret_key"],
+            DATA_SOURCES[data_source]["tutorial_anchor"],
             DATA_SOURCES[data_source]["secrets_template"],
         )
     )
@@ -127,7 +138,7 @@ def connect(data_source):
 
 if __name__ == "__main__":
 
-    st.set_page_config(layout="centered")
+    st.set_page_config(page_title="Data Sources app", page_icon="🔌", layout="centered")
 
     data_source = st.sidebar.selectbox(
         "Choose a data source",

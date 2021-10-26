@@ -5,21 +5,6 @@ def striken(text):
     return "".join(chr(822) + t for t in text)
 
 
-def to_do_element(text, checkbox_id):
-    cols = st.columns((1, 20))
-    done = cols[0].checkbox(" ", key=checkbox_id)
-    if done:
-        _, title, *rest = text.split("**")
-        rest = "**".join(rest)
-        rest = ""
-        cols[1].write(f"<s> **{title}** </s> {rest}", unsafe_allow_html=True)
-        # cols[1].write(f"<s>{text}</s>", unsafe_allow_html=True)
-    else:
-        cols[1].write(text, unsafe_allow_html=True)
-
-    return done
-
-
 def to_do(st_commands, checkbox_id):
     cols = st.columns((1, 20))
     done = cols[0].checkbox(" ", key=checkbox_id)

@@ -6,8 +6,8 @@ Streamlit makes it **super easy** to connect your apps to your data sources. Wit
 
 ## Get started!
 
-**Fork and deploy this app** in your own workspace in Streamlit Cloud 🎈
-- [Fork](https://github.com/streamlit/data_sources_app/fork) this app's repository
+**Deploy this app** in your own workspace in Streamlit Cloud 🎈
+- [Fork](https://github.com/streamlit/data_sources_app/fork) or clone (`git clone streamlit/data_sources_app`) this app's repository
 - Visit your [Streamlit Cloud dashboard](https://share.streamlit.io/signup) and click on <kbd>New App</kbd>
 - Fill the form:  
 

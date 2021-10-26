@@ -12,6 +12,7 @@ google-api-python-client = "*"
 gsheetsdb = "*"
 supabase-py = "*"
 pyarrow = "*"
+s3fs = "*"
 
 [dev-packages]
 black = "*"  # Pretty formatting of Python code
