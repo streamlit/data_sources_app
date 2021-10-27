@@ -27,11 +27,6 @@ def get_connector():
 
 
 def tutorial():
-    st.write(
-        """First, sign up for [Snowflake](https://signup.snowflake.com/)
-    and log into the Snowflake [web interface](https://docs.snowflake.com/en/user-guide/connecting.html#logging-in-using-the-web-interface) 
-    (write down your username, password, and account identifier!)"""
-    )
 
     to_do(
         [
