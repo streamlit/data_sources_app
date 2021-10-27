@@ -4,7 +4,7 @@ Streamlit makes it **super easy** to connect your apps to your data sources. Wit
 
 ## Get started!
 
-**Deploy this app** in your own workspace in Streamlit Cloud 🎈
+**Let's deploy this app** in your Streamlit Cloud workspace 🎈
 
 
 <table border="0">
@@ -33,11 +33,11 @@ Streamlit makes it **super easy** to connect your apps to your data sources. Wit
    </tr>
    <tr>
       <td><img src="imgs/watch_app_launch.png" width="400"></td>
-      <td>Finally, click on <kbd> Deploy! </kbd> and watch your app launch. It can take a minute or two!</td>
+      <td>Finally, click on <kbd> Deploy! </kbd> and watch your app launch. <br> It can take a minute or two!</td>
    </tr>
    <tr>
       <td><img src="imgs/data_sources_app.png" width="600"></td>
-      <td>🎊 Congrats, you're done with this part: your app is running on Streamlit Cloud! <b>Now stay on your app, choose a data source</b> and follow the instructions there! </td>
+      <td>🎊 Congrats, you're done with this part: your app is running on Streamlit Cloud! <br><br><b>Now stay on your app, choose a data source</b> and follow the instructions there! </td>
    </tr>
 </table>
 
