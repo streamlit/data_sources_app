@@ -4,7 +4,7 @@ import streamlit as st
 from pathlib import Path
 
 import data_sources
-from data_sources import big_query, snowflake, aws_s3
+from data_sources import big_query, snowflake, aws_s3, google_sheet
 
 from utils import ui, intro
 
@@ -42,14 +42,15 @@ DATA_SOURCES = {
         "tutorial_anchor": "#tutorial-connecting-to-aws-s3",
         "secrets_template": data_sources.aws_s3.TOML_SERVICE_ACCOUNT,
     },
-    #
-    # (Currently disregarding other data sources)
-    # "📝 Public Google Sheet": {
-    #     "app": google_sheet_app,
-    #     "secret_key": "gsheets",
-    #     "docs_url": "https://docs.streamlit.io/en/latest/tutorial/public_gsheet.html#connect-streamlit-to-a-public-google-sheet",
-    #     "get_connector": ds.google_sheet_app.get_connector,
-    # },
+    "📝 Google Sheet": {
+        "module": data_sources.google_sheet,
+        "secret_key": "gsheets",
+        "docs_url": "https://docs.streamlit.io/en/latest/tutorial/public_gsheet.html#connect-streamlit-to-a-public-google-sheet",
+        "get_connector": data_sources.google_sheet.get_connector,
+        "tutorial": data_sources.google_sheet.tutorial,
+        "tutorial_anchor": "#tutorial-connecting-to-google-sheet",
+        "secrets_template": data_sources.google_sheet.TOML_SERVICE_ACCOUNT,
+    },
 }
 
 NO_CREDENTIALS_FOUND = """❌ **No credentials were found for '`{}`' in your Streamlit Secrets.**   
@@ -65,15 +66,16 @@ we have not been able to connect to the data source. You might have forgotten so
 Check the exception below 👇  
 """
 
-WHAT_NEXT = """## What next?
+PIPFILE_URL = "https://github.com/streamlit/data_sources_app/blob/main/Pipfile"
+WHAT_NEXT = f"""## What next?
 
 🚀 Kick-off your own app now!  
 
 - Create a new repository
 - Paste the code above into a new file `streamlit_app.py` and use it as a starter! 
-- Include the files `Pipfile` and `Pipfile.lock` in your repository too so as to ensure the dependencies as managed
+- Add your dependencies in a `requirements.txt` (take inspiration from our [`Pipfile`]({PIPFILE_URL})!)
 
-And you're ready to go!
+And the rest **you know already**: deploy, add credentials and you're ready to go!
 
 🤔 Stuck? Check out our docs on [creating](https://docs.streamlit.io/library/get-started/create-an-app) 
 and [deploying](https://docs.streamlit.io/streamlit-cloud/get-started/deploy-an-app) an app or reach out to 

@@ -3,14 +3,58 @@ from gsheetsdb import connect
 import pandas as pd
 import numpy as np
 
-# Initialize connection.
-# Uses st.experimental_singleton to only run once.
+from utils.ui import to_do, to_button
+
+CREATE_PUBLIC_GSHEET = f"""**Create a [new](https://sheets.new/) public Google Sheet and get
+its URL**. Unless of course if you already have an existing one in mind. Simply make sure 
+that you turned on link sharing by clicking on {to_button("Share")} > Anyone with the link.
+"""
+
+PASTE_INTO_SECRETS = f"""**Paste these `.toml` credentials into your Streamlit Secrets! **  
+You should click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")}"""
+
+TOML_SERVICE_ACCOUNT = """[gsheets]
+    public_gsheets_url = "..."  # <-- your public Google Sheet URL here
+"""
+
+# @st.experimental_singleton()
+# We intendedly do not cache the connector in the actual data sources app
+# so that if secrets are removed, the error is shown and we don't use
+# the connector from cache
 @st.experimental_singleton()
 def get_connector():
     return connect()
 
 
-def main():
+def tutorial():
+    st.write(
+        """First, sign up for [Snowflake](https://signup.snowflake.com/)
+    and log into the Snowflake [web interface](https://docs.snowflake.com/en/user-guide/connecting.html#logging-in-using-the-web-interface) 
+    (write down your username, password, and account identifier!)"""
+    )
+
+    to_do(
+        [
+            (st.write, CREATE_PUBLIC_GSHEET),
+        ],
+        "google_sheet_create_public_gsheet",
+    )
+
+    to_do(
+        [
+            (st.write, """**Format your credentials into `.toml` as below:**"""),
+            (st.code, TOML_SERVICE_ACCOUNT, "toml"),
+        ],
+        "google_sheet_creds_formatted",
+    )
+
+    to_do(
+        [(st.write, PASTE_INTO_SECRETS), (st.image, "imgs/arrow.png")],
+        "copy_pasted_secrets",
+    )
+
+
+def app():
 
     # Share the connector across all users connected to the app
     @st.experimental_singleton()
@@ -39,7 +83,3 @@ def main():
     data = get_data(gsheet_connector, gsheets_url)
     st.write("👇 Find below the data in the Google Sheet you provided in the secrets:")
     st.dataframe(data)
-
-
-if __name__ == "__main__":
-    main()
