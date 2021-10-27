@@ -1,5 +1,3 @@
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/streamlit/data_sources_app/main)
-
 # Streamlit demo: 🔌 The Data Sources app
 
 Streamlit makes it **super easy** to connect your apps to your data sources. With this app, we'll show you the way!
@@ -7,17 +5,28 @@ Streamlit makes it **super easy** to connect your apps to your data sources. Wit
 ## Get started!
 
 **Deploy this app** in your own workspace in Streamlit Cloud 🎈
+
 - [Fork](https://github.com/streamlit/data_sources_app/fork) or clone (`git clone streamlit/data_sources_app`) this app's repository
-- Visit your [Streamlit Cloud dashboard](https://share.streamlit.io/signup) and click on <kbd>New App</kbd>
-- Fill the form:  
 
-    - Repository: `{your_github_username}/data_sources_app`  
-    - Branch: `main`  
-    - Main file path: `streamlit_app.py`
-- Click on <kbd> Deploy! </kbd>
+<table border="0">
+ <tr>
+    <td><img src="imgs/dashboard.png" width="300"></td>
+    <td>1. Visit your <a src="https://share.streamlit.io/signup">Streamlit Cloud dashboard</a> and click on <kbd>New App</kbd></td>
+ </tr>
+ <tr>
+    <td><img src="imgs/deploy_form.png" width="300"></td>
+    <td>2. Fill the form with: <ul> <li>your repository name (<code>{username}/data_sources_app</code>)</li> <li> the branch name (<code>main</code>)</li> <li> the main file path (<code>streamlit_app.py</code>) </li></ul>
+<td>
+ </tr>
+ <tr>
+    <td><img src="imgs/watch_app_launch.png" width="300"></td>
+    <td>3. Click on <kbd> Deploy! </kbd> and watch your app launch. It can take a minute or two!</td>
+</tr>
+</table>
 
-Congrats! Your app is now running on Streamlit Cloud 🎊  
-Choose a data source and follow the instructions!
+🎊 Congrats, you're done with this part: your app is running on Streamlit Cloud!  
+
+**Now choose a data source** and follow the instructions there!
 
 ### Questions? Comments?
 
