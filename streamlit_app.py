@@ -33,15 +33,16 @@ DATA_SOURCES = {
         "tutorial_anchor": "#tutorial-connecting-to-snowflake",
         "secrets_template": data_sources.snowflake.TOML_SERVICE_ACCOUNT,
     },
-    "📦 AWS S3 (WIP)": {
-        "module": data_sources.aws_s3,
-        "secret_key": "aws_s3",
-        "docs_url": "https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3",
-        "get_connector": data_sources.aws_s3.get_connector,
-        "tutorial": data_sources.aws_s3.tutorial,
-        "tutorial_anchor": "#tutorial-connecting-to-aws-s3",
-        "secrets_template": data_sources.aws_s3.TOML_SERVICE_ACCOUNT,
-    },
+    # S3 is not stable for now
+    # "📦 AWS S3 (WIP)": {
+    #     "module": data_sources.aws_s3,
+    #     "secret_key": "aws_s3",
+    #     "docs_url": "https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3",
+    #     "get_connector": data_sources.aws_s3.get_connector,
+    #     "tutorial": data_sources.aws_s3.tutorial,
+    #     "tutorial_anchor": "#tutorial-connecting-to-aws-s3",
+    #     "secrets_template": data_sources.aws_s3.TOML_SERVICE_ACCOUNT,
+    # },
     "📝 Google Sheet": {
         "module": data_sources.google_sheet,
         "secret_key": "gsheets",
