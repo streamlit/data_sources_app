@@ -36,7 +36,7 @@ Streamlit makes it **super easy** to connect your apps to your data sources. Wit
       <td>Finally, click on <kbd> Deploy! </kbd> and watch your app launch. It can take a minute or two!</td>
    </tr>
    <tr>
-      <td><img src="imgs/data_sources_app.png" width="400"></td>
+      <td><img src="imgs/data_sources_app.png" width="600"></td>
       <td>🎊 Congrats, you're done with this part: your app is running on Streamlit Cloud! <b>Now stay on your app, choose a data source</b> and follow the instructions there! </td>
    </tr>
 </table>
