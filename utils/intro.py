@@ -14,7 +14,7 @@ We'll now help you:
 
 **Ready?**
 
-👈 Choose the data source you want to work with
+👈 Choose the data source you want to read data from
 """
 
 
