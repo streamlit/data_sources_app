@@ -14,7 +14,7 @@ PASTE_INTO_SECRETS = f"""**Paste these `.toml` credentials into your Streamlit S
 You should click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")}"""
 
 TOML_SERVICE_ACCOUNT = """[gsheets]
-    public_gsheets_url = "..."  # <-- your public Google Sheet URL here
+    public_gsheets_url = "https://docs.google.com/..."
 """
 
 # @st.experimental_singleton()
@@ -23,7 +23,14 @@ TOML_SERVICE_ACCOUNT = """[gsheets]
 # the connector from cache
 @st.experimental_singleton()
 def get_connector():
-    return connect()
+    connector = connect()
+    try:
+        connector.execute(
+            f"""SELECT * FROM {st.secrets["gsheets"]["public_gsheets_url"]}"""
+        )
+    except Exception as e:
+        raise Exception("Invalid URL, must be a docs.google.com URL!")
+    return connect
 
 
 def tutorial():
@@ -37,7 +44,10 @@ def tutorial():
 
     to_do(
         [
-            (st.write, """**Format your credentials into `.toml` as below:**"""),
+            (
+                st.write,
+                """**Copy and edit your credentials into `.toml` format as below:**""",
+            ),
             (st.code, TOML_SERVICE_ACCOUNT, "toml"),
         ],
         "google_sheet_creds_formatted",
