@@ -24,12 +24,11 @@ TOML_SERVICE_ACCOUNT = """[gsheets]
 @st.experimental_singleton()
 def get_connector():
     connector = connect()
-    try:
-        connector.execute(
-            f"""SELECT * FROM {st.secrets["gsheets"]["public_gsheets_url"]}"""
-        )
-    except Exception as e:
-        raise Exception("Invalid URL, must be a docs.google.com URL!")
+
+    assert st.secrets["gsheets"]["public_gsheets_url"].startswith(
+        "https://docs.google.com/"
+    ), "Invalid URL, must start with https://docs.google.com"
+
     return connect
 
 
