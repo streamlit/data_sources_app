@@ -1,7 +1,6 @@
 import streamlit as st
 from gsheetsdb import connect
 import pandas as pd
-import numpy as np
 
 from utils.ui import to_do, to_button
 
@@ -59,6 +58,9 @@ def tutorial():
 
 
 def app():
+    import streamlit as st
+    import pandas as pd
+    from gsheetsdb import connect
 
     # Share the connector across all users connected to the app
     @st.experimental_singleton()
