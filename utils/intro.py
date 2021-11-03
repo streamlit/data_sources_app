@@ -18,12 +18,6 @@ We'll now help you:
 """
 
 
-def write(text, strike=False):
-    if strike:
-        text = f"<strike>{text}</strike> {get_done_div()}"
-    st.write(text, unsafe_allow_html=True)
-
-
 def load_keyboard_class():
     st.write(
         """<style>
