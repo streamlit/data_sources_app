@@ -172,7 +172,7 @@ if __name__ == "__main__":
             st.sidebar.success("✔ Connected!")
             show_success(data_source)
         else:
-            st.sidebar.error("❌ Could not connect.")
+            st.sidebar.error("❌ Could not connect!")
             show_error_when_not_connected(data_source)
             st.stop()
 
