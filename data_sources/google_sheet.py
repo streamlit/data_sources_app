@@ -1,6 +1,6 @@
 import streamlit as st
 from gsheetsdb import connect
-import pandas as pd
+import toml
 
 from utils.ui import to_do, to_button
 
@@ -18,7 +18,7 @@ If the Cloud console is not yet opened, click on {to_button("Manage app")} in th
 Once it is opened, then click on {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")} and paste your TOML credentials there. Don't forget to {to_button("Save")}!"""
 
 TOML_SERVICE_ACCOUNT = """[gsheets]
-    public_gsheets_url = "https://docs.google.com/..."
+public_gsheets_url = "https://docs.google.com/..."
 """
 
 # @st.experimental_singleton()
@@ -51,16 +51,18 @@ def tutorial():
     )
 
     def url_to_toml():
-        import toml
-
         url_input_str = st.text_input("URL of the Google Sheet")
         convert = st.button("Create TOML credentials")
         if url_input_str or convert:
-            assert url_input_str.startswith(
-                "https://docs.google.com/"
-            ), "Invalid URL, must start with https://docs.google.com"
-            toml_output = toml.dumps({"gsheets": {"public_gsheets_url": url_input_str}})
-            st.code(toml_output, "toml")
+            if not url_input_str.startswith("https://docs.google.com/"):
+                st.error(
+                    "Invalid URL! The URL must start with https://docs.google.com. Please retry!"
+                )
+            else:
+                toml_output = toml.dumps(
+                    {"gsheets": {"public_gsheets_url": url_input_str}}
+                )
+                st.code(toml_output, "toml")
 
     to_do(
         [

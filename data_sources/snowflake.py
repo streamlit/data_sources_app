@@ -1,7 +1,7 @@
 import streamlit as st
-import pandas as pd
 from snowflake.connector import connect
 from snowflake.connector.connection import SnowflakeConnection
+import toml
 
 from utils.ui import to_do, to_button
 
@@ -41,8 +41,6 @@ def tutorial():
     to_do([(st.write, SIGN_IN_SNOWFLAKE)], "sign_in_snowflake")
 
     def generate_credentials():
-        import toml
-
         creds = st.form(key="creds")
         user = creds.text_input("User")
         password = creds.text_input("Password", type="password")

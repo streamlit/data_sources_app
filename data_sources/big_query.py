@@ -1,6 +1,8 @@
 import streamlit as st
 from google.cloud import bigquery
 from google.oauth2.service_account import Credentials
+import json, toml
+from io import StringIO
 
 from utils.ui import to_do, to_button
 
@@ -104,8 +106,6 @@ def tutorial():
     )
 
     def json_to_toml():
-        import json, toml
-        from io import StringIO
 
         widget_choice = st.selectbox(
             "Choose how to insert your service account",
