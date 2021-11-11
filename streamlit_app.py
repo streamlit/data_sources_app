@@ -54,11 +54,8 @@ DATA_SOURCES = {
     },
 }
 
-NO_CREDENTIALS_FOUND = """❌ **No credentials were found for '`{}`' in your Streamlit Secrets.**   
-Please follow our [tutorial]({}) or make sure that your secrets look like the following:
-```toml
-{}
-```"""
+NO_CREDENTIALS_FOUND = """❌ **We couldn't find credentials for '`{}`' in your Streamlit Secrets.**   
+Please follow our tutorial just below 👇"""
 
 CREDENTIALS_FOUND_BUT_ERROR = """**❌ Credentials were found but there is an error.**  
 While you have successfully filled in Streamlit secrets for the key `{}`,
@@ -83,6 +80,8 @@ and [deploying](https://docs.streamlit.io/streamlit-cloud/get-started/deploy-an-
 support@streamlit.io!
 """
 
+QUESTION_OR_FEEDBACK = """Questions? Comments? Please ask in the [Streamlit community](https://discuss.streamlit.io/)."""
+
 
 def has_data_source_key_in_secrets(data_source: str) -> bool:
     return DATA_SOURCES[data_source]["secret_key"] in st.secrets
@@ -100,8 +99,6 @@ def show_error_when_not_connected(data_source: str):
     st.error(
         NO_CREDENTIALS_FOUND.format(
             DATA_SOURCES[data_source]["secret_key"],
-            DATA_SOURCES[data_source]["tutorial_anchor"],
-            DATA_SOURCES[data_source]["secrets_template"],
         )
     )
 
@@ -146,10 +143,24 @@ if __name__ == "__main__":
 
     st.set_page_config(page_title="Data Sources app", page_icon="🔌", layout="centered")
 
+    # Infer selected page from query params.
+    query_params = st.experimental_get_query_params()
+    if "data_source" in query_params:
+        page_url = query_params["data_source"][0]
+        if page_url in DATA_SOURCES.keys():
+            st.session_state["page_selector"] = page_url
+
+    # If viewer clicks on page selector: Update query params to point to this page.
+    def change_page_url():
+        """Update query params to reflect the selected page."""
+        st.experimental_set_query_params(data_source=st.session_state["page_selector"])
+
     data_source = st.sidebar.selectbox(
         "Choose a data source",
         list(DATA_SOURCES.keys()),
         index=0,
+        key="page_selector",
+        on_change=change_page_url,
     )
 
     st.session_state.active_page = data_source
@@ -174,6 +185,7 @@ if __name__ == "__main__":
         else:
             st.sidebar.error("❌ Could not connect!")
             show_error_when_not_connected(data_source)
+            st.caption(QUESTION_OR_FEEDBACK)
             st.stop()
 
     # Release balloons to celebrate (only upon first success)
@@ -193,3 +205,5 @@ if __name__ == "__main__":
     if show_code:
         code(data_source_app)
         what_next()
+
+    st.caption(QUESTION_OR_FEEDBACK)

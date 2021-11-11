@@ -17,8 +17,9 @@ def to_do(st_commands, checkbox_id):
                 if cmd == st.write:
                     st.write(*args, unsafe_allow_html=True)
                 else:
-                    cmd(*args)
 
+                    cmd(*args)
+    st.write("")
     return done
 
 

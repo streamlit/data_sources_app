@@ -4,13 +4,18 @@ import pandas as pd
 
 from utils.ui import to_do, to_button
 
-CREATE_PUBLIC_GSHEET = f"""**Create a [new](https://sheets.new/) public Google Sheet and get
-its URL**. Unless of course if you already have an existing one in mind. Simply make sure 
-that you turned on link sharing by clicking on {to_button("Share")} > Anyone with the link.
-"""
+INIT_GSHEET = f"""**If you don't have one yet, [create a new Google Sheet](https://sheets.new/)**.  
 
-PASTE_INTO_SECRETS = f"""**Paste these `.toml` credentials into your Streamlit Secrets! **  
-You should click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")}"""
+Give it any name, and fill it with mock data."""
+
+MAKE_IT_PUBLIC = f"""**Make sure that your Sheet is public**  
+
+Click on {to_button("Share")} > {to_button("Share with ...")} and select {to_button("Anyone with the link can view")}."""
+
+PASTE_INTO_SECRETS = f"""**Paste the TOML credentials into your Streamlit Secrets! **  
+
+If the Cloud console is not yet opened, click on {to_button("Manage app")} in the bottom right part of this window.  
+Once it is opened, then click on {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")} and paste your TOML service account there. Don't forget to {to_button("Save")}!"""
 
 TOML_SERVICE_ACCOUNT = """[gsheets]
     public_gsheets_url = "https://docs.google.com/..."
@@ -28,31 +33,48 @@ def get_connector():
         "https://docs.google.com/"
     ), "Invalid URL, must start with https://docs.google.com"
 
-    return connect
+    return connector
 
 
 def tutorial():
 
     to_do(
         [
-            (st.write, CREATE_PUBLIC_GSHEET),
+            (st.write, INIT_GSHEET),
         ],
-        "google_sheet_create_public_gsheet",
+        "google_sheet_public_gsheet",
     )
+
+    to_do(
+        [(st.write, MAKE_IT_PUBLIC), (st.image, "imgs/link_sharing.png")],
+        "make_it_public",
+    )
+
+    def url_to_toml():
+        import toml
+
+        url_input_str = st.text_input("URL of the Google Sheet")
+        convert = st.button("Create TOML credentials")
+        if url_input_str or convert:
+            assert url_input_str.startswith(
+                "https://docs.google.com/"
+            ), "Invalid URL, must start with https://docs.google.com"
+            toml_output = toml.dumps({"gsheets": {"public_gsheets_url": url_input_str}})
+            st.code(toml_output, "toml")
 
     to_do(
         [
             (
                 st.write,
-                """**Copy and edit your credentials into `.toml` format as below:**""",
+                """**Create TOML credentials**""",
             ),
-            (st.code, TOML_SERVICE_ACCOUNT, "toml"),
+            (url_to_toml,),
         ],
         "google_sheet_creds_formatted",
     )
 
     to_do(
-        [(st.write, PASTE_INTO_SECRETS), (st.image, "imgs/arrow.png")],
+        [(st.write, PASTE_INTO_SECRETS), (st.image, "imgs/fill_secrets.png")],
         "copy_pasted_secrets",
     )
 
@@ -67,7 +89,7 @@ def app():
     def get_connector():
         return connect()
 
-    # The maximum number of seconds to keep an entry in the cache
+    # Time to live: the maximum number of seconds to keep an entry in the cache
     TTL = 24 * 60 * 60
 
     # Using `experimental_memo()` to memoize function executions
