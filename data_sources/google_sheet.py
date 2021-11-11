@@ -10,7 +10,7 @@ Give it any name, and fill it with mock data."""
 
 MAKE_IT_PUBLIC = f"""**Make sure that your Sheet is public**  
 
-Click on {to_button("Share")} > {to_button("Share with ...")} and select {to_button("Anyone with the link can view")}."""
+Open you Sheet, click on {to_button("Share")} > {to_button("Share with ...")} and select {to_button("Anyone with the link can view")}."""
 
 PASTE_INTO_SECRETS = f"""**Paste the TOML credentials into your Streamlit Secrets! **  
 
