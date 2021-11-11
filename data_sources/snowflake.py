@@ -6,14 +6,24 @@ from snowflake.connector.connection import SnowflakeConnection
 from utils.ui import to_do, to_button
 
 TOML_SERVICE_ACCOUNT = """[snowflake]
-    user = ...
-    password = ...
-    account = ...
-    warehouse = ...
+user = ...
+password = ...
+account = ...
+warehouse = ...
 """
 
-PASTE_INTO_SECRETS = f"""**Paste these `.toml` credentials into your Streamlit Secrets! **  
-You should click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")}"""
+SIGN_UP_SNOWFLAKE = """**If you haven't already, [sign up for Snowflake](https://signup.snowflake.com/)**"""
+
+SIGN_IN_URL = "https://docs.snowflake.com/en/user-guide/connecting.html#logging-in-using-the-web-interface"
+SIGN_IN_SNOWFLAKE = f"""**Sign in to the [Snowflake web interface]({SIGN_IN_URL})**  
+
+Don't forget to write down your username, password, account and warehouse identifiers, we need them right after!"""
+
+PASTE_INTO_SECRETS = f"""**Paste the TOML credentials generated above into your Streamlit Secrets! **  
+
+If the Cloud console is not yet opened, click on {to_button("Manage app")} in the bottom right part of this window.  
+Once it is opened, then click on {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")} and paste your TOML service account there. Don't forget to {to_button("Save")}!"""
+
 
 # @st.experimental_singleton()
 # We intendedly do not cache the connector in the actual data sources app
@@ -26,22 +36,53 @@ def get_connector() -> SnowflakeConnection:
 
 
 def tutorial():
-    st.write(
-        """First, sign up for [Snowflake](https://signup.snowflake.com/)
-    and log into the Snowflake [web interface](https://docs.snowflake.com/en/user-guide/connecting.html#logging-in-using-the-web-interface) 
-    (write down your username, password, and account identifier!)"""
-    )
+
+    to_do([(st.write, SIGN_UP_SNOWFLAKE)], "sign_up_snowflake")
+    to_do([(st.write, SIGN_IN_SNOWFLAKE)], "sign_in_snowflake")
+
+    def generate_credentials():
+        import toml
+
+        creds = st.form(key="creds")
+        user = creds.text_input("User")
+        password = creds.text_input("Password", type="password")
+        account = creds.text_input("Account")
+        warehouse = creds.text_input("Warehouse")
+        button = creds.form_submit_button("Create TOML credentials")
+
+        if button:
+            toml_credentials = toml.dumps(
+                {
+                    "snowflake": {
+                        "user": user,
+                        "password": password,
+                        "account": account,
+                        "warehouse": warehouse,
+                    }
+                }
+            )
+            st.write("""TOML output:""")
+            st.caption(
+                "(You can copy this TOML by hovering on the code box: a copy button will appear on the right)"
+            )
+            st.code(toml_credentials, "toml")
 
     to_do(
         [
-            (st.write, """**Format your credentials into `.toml` as below:**"""),
-            (st.code, TOML_SERVICE_ACCOUNT, "toml"),
+            (
+                st.write,
+                """**Fill in your Snowflake credentials and transform them to TOML:**""",
+            ),
+            (generate_credentials,),
         ],
         "snowflake_creds_formatted",
     )
 
     to_do(
-        [(st.write, PASTE_INTO_SECRETS), (st.image, "imgs/arrow.png")],
+        [
+            (st.write, PASTE_INTO_SECRETS),
+            (st.image, "imgs/fill_secrets.png"),
+        ],
         "copy_pasted_secrets",
     )
 
