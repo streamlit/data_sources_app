@@ -15,7 +15,7 @@ Click on {to_button("Share")} > {to_button("Share with ...")} and select {to_but
 PASTE_INTO_SECRETS = f"""**Paste the TOML credentials into your Streamlit Secrets! **  
 
 If the Cloud console is not yet opened, click on {to_button("Manage app")} in the bottom right part of this window.  
-Once it is opened, then click on {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")} and paste your TOML service account there. Don't forget to {to_button("Save")}!"""
+Once it is opened, then click on {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")} and paste your TOML credentials there. Don't forget to {to_button("Save")}!"""
 
 TOML_SERVICE_ACCOUNT = """[gsheets]
     public_gsheets_url = "https://docs.google.com/..."
