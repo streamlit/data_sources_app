@@ -13,6 +13,7 @@ gsheetsdb = "*"
 pyarrow = "*"
 s3fs = "*"
 websockets = ">=9.1"
+cffi = "==1.14.6"
 
 [dev-packages]
 black = "*"  # Pretty formatting of Python code
