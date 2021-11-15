@@ -139,6 +139,15 @@ def connect(data_source):
         st.stop()
 
 
+# If viewer clicks on page selector: Update query params to point to this page.
+def change_page_url():
+    """Update query params to reflect the selected page."""
+    if st.session_state["page_selector"] == intro.INTRO_IDENTIFIER:
+        st.experimental_set_query_params()
+    else:
+        st.experimental_set_query_params(data_source=st.session_state["page_selector"])
+
+
 if __name__ == "__main__":
 
     st.set_page_config(page_title="Data Sources app", page_icon="🔌", layout="centered")
@@ -149,11 +158,6 @@ if __name__ == "__main__":
         page_url = query_params["data_source"][0]
         if page_url in DATA_SOURCES.keys():
             st.session_state["page_selector"] = page_url
-
-    # If viewer clicks on page selector: Update query params to point to this page.
-    def change_page_url():
-        """Update query params to reflect the selected page."""
-        st.experimental_set_query_params(data_source=st.session_state["page_selector"])
 
     data_source = st.sidebar.selectbox(
         "Choose a data source",
