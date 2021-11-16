@@ -135,6 +135,7 @@ def tutorial():
         if service_account_str or convert:
             try:
                 input_json = json.loads(service_account_str)
+                input_json = {"bigquery": input_json}
                 toml_output = toml.dumps(input_json)
                 st.write("""TOML output:""")
                 st.caption(
