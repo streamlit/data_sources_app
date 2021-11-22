@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-google-cloud-bigquery = "*"
+google-cloud-bigquery = "==2.30.*"
 matplotlib = "*"
 streamlit-agraph = "*"
 snowflake-connector-python = "*"
