@@ -77,9 +77,11 @@ def tutorial():
     def generate_toml():
         import toml
 
-        access_key_id = st.text_input("Access Key ID")
-        secret_access_key = st.text_input("Secret Access Key")
-        if access_key_id and secret_access_key:
+        form = st.form(key="toml_form")
+        access_key_id = form.text_input("Access Key ID")
+        secret_access_key = form.text_input("Secret Access Key", type="password")
+        submit = st.form_submit_button("Create TOML credentials")
+        if submit:
             json_credentials = {
                 "bigquery": {
                     "ACCESS_KEY_ID": access_key_id,
