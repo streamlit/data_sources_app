@@ -83,7 +83,7 @@ def tutorial():
         submit = form.form_submit_button("Create TOML credentials")
         if submit:
             json_credentials = {
-                "bigquery": {
+                "aws_s3": {
                     "ACCESS_KEY_ID": access_key_id,
                     "SECRET_ACCESS_KEY": secret_access_key,
                 }
