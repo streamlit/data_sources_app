@@ -22,7 +22,7 @@ FORMAT_INTO_TML = f"""**Generate your TOML credentials for Streamlit**
 Paste your "Access Key ID" and "Secret Access Key" below to generate TOML credentials
 """
 
-PASTE_INTO_SECRETS = f"""**Paste these `.toml` credentials into your Streamlit Secrets! **  
+PASTE_INTO_SECRETS = f"""**Paste these TOML credentials into your Streamlit Secrets! **  
 You should click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")}"""
 
 
