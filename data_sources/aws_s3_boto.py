@@ -10,17 +10,12 @@ Go to the [S3 console](https://s3.console.aws.amazon.com/s3/home), click on {to_
 and create a bucket
 """
 
-CREATE_BUCKET_IMG_PATH = "imgs/aws-1.png"
-
-UPLOAD_FILE_IN_BUCKET = f"""**Upload a file in the bucket**  
-Navigate to the upload section of your new bucket and upload one or more file(s)
+UPLOAD_FILE_IN_BUCKET = f"""**Upload one or more file(s) in the bucket**  
+Click on one of your buckets and head to the upload section. Now upload one or more file(s)
 """
 
 CREATE_ACCESS_KEYS = f"""**Create an access key**  
-Go to the [AWS console](https://console.aws.amazon.com/) and under your user name selector, 
-click on {to_button("Security Credentials")}  
-On the new page, toggle {to_button("> Access keys (access key ID and secret access key)")} you will 
-be able to click on {to_button("Create New Access Key")} and then toggle {to_button("> Show Access Key")}.
+First, visit the [AWS console](https://console.aws.amazon.com/). Then:
 """
 
 FORMAT_INTO_TML = f"""**Generate your TOML credentials for Streamlit**  
@@ -57,20 +52,21 @@ def tutorial():
     to_do(
         [
             (st.write, CREATE_BUCKET),
-            (st.image, CREATE_BUCKET_IMG_PATH),
+            (st.image, "imgs/s3-create-bucket.png"),
         ],
         "create_bucket",
     )
 
     to_do(
-        [
-            (st.write, UPLOAD_FILE_IN_BUCKET),
-        ],
+        [(st.write, UPLOAD_FILE_IN_BUCKET), (st.image, "imgs/s3-upload.png")],
         "upload_file_in_bucket",
     )
 
     to_do(
-        [(st.write, CREATE_ACCESS_KEYS)],
+        [
+            (st.write, CREATE_ACCESS_KEYS),
+            (st.image, "imgs/s3-create-access-key-total.png"),
+        ],
         "create_access_keys",
     )
 
