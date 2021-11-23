@@ -80,7 +80,7 @@ def tutorial():
         form = st.form(key="toml_form")
         access_key_id = form.text_input("Access Key ID")
         secret_access_key = form.text_input("Secret Access Key", type="password")
-        submit = st.form_submit_button("Create TOML credentials")
+        submit = form.form_submit_button("Create TOML credentials")
         if submit:
             json_credentials = {
                 "bigquery": {
