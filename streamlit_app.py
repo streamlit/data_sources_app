@@ -31,7 +31,7 @@ DATA_SOURCES = {
         "tutorial": data_sources.snowflake.tutorial,
         "tutorial_anchor": "#tutorial-connecting-to-snowflake",
     },
-    "📦 AWS S3 (boto3)": {
+    "📦 AWS S3": {
         "module": data_sources.aws_s3_boto,
         "secret_key": "aws_s3",
         "docs_url": "https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3",

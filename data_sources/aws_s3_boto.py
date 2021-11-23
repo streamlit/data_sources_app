@@ -136,7 +136,7 @@ def app():
         if files:
             return pd.DataFrame(files)[["Key", "LastModified", "Size", "StorageClass"]]
 
-    st.markdown(f"## 📦 Connecting to AWS S3 (boto3)")
+    st.markdown(f"## 📦 Connecting to AWS S3")
 
     s3 = get_connector()
 
