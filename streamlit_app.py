@@ -4,7 +4,7 @@ import streamlit as st
 from pathlib import Path
 
 import data_sources
-from data_sources import big_query, snowflake, aws_s3, aws_s3_boto, google_sheet
+from data_sources import big_query, snowflake, aws_s3_boto, google_sheet
 
 from utils import ui, intro
 
