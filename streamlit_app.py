@@ -37,7 +37,7 @@ DATA_SOURCES = {
         "module": data_sources.aws_s3_boto,
         "secret_key": "aws_s3",
         "docs_url": "https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3",
-        "get_connector": data_sources.aws_s3_boto.app.get_connector,
+        "get_connector": data_sources.aws_s3_boto.get_connector,
         "tutorial": data_sources.aws_s3_boto.tutorial,
         "tutorial_anchor": "#tutorial-connecting-to-aws-s3",
         "secrets_template": data_sources.aws_s3.TOML_SERVICE_ACCOUNT,
