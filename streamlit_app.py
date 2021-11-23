@@ -4,7 +4,7 @@ import streamlit as st
 from pathlib import Path
 
 import data_sources
-from data_sources import big_query, snowflake, aws_s3, google_sheet
+from data_sources import big_query, snowflake, aws_s3, aws_s3_boto, google_sheet
 
 from utils import ui, intro
 
@@ -33,16 +33,15 @@ DATA_SOURCES = {
         "tutorial_anchor": "#tutorial-connecting-to-snowflake",
         "secrets_template": data_sources.snowflake.TOML_SERVICE_ACCOUNT,
     },
-    # S3 is not stable for now
-    # "📦 AWS S3 (WIP)": {
-    #     "module": data_sources.aws_s3,
-    #     "secret_key": "aws_s3",
-    #     "docs_url": "https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3",
-    #     "get_connector": data_sources.aws_s3.get_connector,
-    #     "tutorial": data_sources.aws_s3.tutorial,
-    #     "tutorial_anchor": "#tutorial-connecting-to-aws-s3",
-    #     "secrets_template": data_sources.aws_s3.TOML_SERVICE_ACCOUNT,
-    # },
+    "📦 AWS S3 (boto3)": {
+        "module": data_sources.aws_s3_boto,
+        "secret_key": "aws_s3",
+        "docs_url": "https://docs.streamlit.io/knowledge-base/tutorials/databases/aws-s3",
+        "get_connector": data_sources.aws_s3_boto.app.get_connector,
+        "tutorial": data_sources.aws_s3_boto.tutorial,
+        "tutorial_anchor": "#tutorial-connecting-to-aws-s3",
+        "secrets_template": data_sources.aws_s3.TOML_SERVICE_ACCOUNT,
+    },
     "📝 Google Sheet": {
         "module": data_sources.google_sheet,
         "secret_key": "gsheets",
