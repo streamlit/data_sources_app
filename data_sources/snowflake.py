@@ -25,10 +25,7 @@ If the Cloud console is not yet opened, click on {to_button("Manage app")} in th
 Once it is opened, then click on {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")} and paste your TOML service account there. Don't forget to {to_button("Save")}!"""
 
 
-# @st.experimental_singleton()
-# We intendedly do not cache the connector in the actual data sources app
-# so that if secrets are removed, the error is shown and we don't use
-# the connector from cache
+@st.experimental_singleton()
 def get_connector() -> SnowflakeConnection:
     """Create a connector to SnowFlake using credentials filled in Streamlit secrets"""
     connector = connect(**st.secrets["snowflake"], client_session_keep_alive=True)

@@ -22,7 +22,6 @@ DATA_SOURCES = {
         "get_connector": data_sources.big_query.get_connector,
         "tutorial": data_sources.big_query.tutorial,
         "tutorial_anchor": "#tutorial-connecting-to-bigquery",
-        "secrets_template": data_sources.big_query.TOML_SERVICE_ACCOUNT,
     },
     "❄️ Snowflake": {
         "module": data_sources.snowflake,
@@ -31,7 +30,6 @@ DATA_SOURCES = {
         "get_connector": data_sources.snowflake.get_connector,
         "tutorial": data_sources.snowflake.tutorial,
         "tutorial_anchor": "#tutorial-connecting-to-snowflake",
-        "secrets_template": data_sources.snowflake.TOML_SERVICE_ACCOUNT,
     },
     "📦 AWS S3 (boto3)": {
         "module": data_sources.aws_s3_boto,
@@ -40,7 +38,6 @@ DATA_SOURCES = {
         "get_connector": data_sources.aws_s3_boto.get_connector,
         "tutorial": data_sources.aws_s3_boto.tutorial,
         "tutorial_anchor": "#tutorial-connecting-to-aws-s3",
-        "secrets_template": data_sources.aws_s3.TOML_SERVICE_ACCOUNT,
     },
     "📝 Google Sheet": {
         "module": data_sources.google_sheet,
@@ -49,7 +46,6 @@ DATA_SOURCES = {
         "get_connector": data_sources.google_sheet.get_connector,
         "tutorial": data_sources.google_sheet.tutorial,
         "tutorial_anchor": "#tutorial-connecting-to-google-sheet",
-        "secrets_template": data_sources.google_sheet.TOML_SERVICE_ACCOUNT,
     },
 }
 
