@@ -11,7 +11,7 @@ snowflake-connector-python = "*"
 google-api-python-client = "*"
 gsheetsdb = "*"
 pyarrow = "*"
-s3fs = "*"
+boto3 = "*"
 websockets = ">=9.1"
 cffi = "==1.14.6"
 

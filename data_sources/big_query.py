@@ -36,27 +36,8 @@ TUTORIAL_4 = f"""**Paste the TOML service account into your Streamlit Secrets! *
 If the Cloud console is not yet opened, click on {to_button("Manage app")} in the bottom right part of this window.  
 Once it is opened, then click on {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")} and paste your TOML service account there. Don't forget to {to_button("Save")}!"""
 
-JSON_SERVICE_ACCOUNT = """{
-"type": "service_account",
-"project_id": ...
-"private_key_id": ...
-"private_key": ...
-"client_email": ...
-..."""
 
-TOML_SERVICE_ACCOUNT = """[bigquery]
-type = "service_account"
-project_id = ...
-private_key_id = ...
-private_key = ...
-client_email = ...
-..."""
-
-
-# @st.experimental_singleton()
-# We intendedly do not cache the connector in the actual data sources app
-# so that if secrets are removed, the error is shown and we don't use
-# the connector from cache
+@st.experimental_singleton()
 def get_connector():
     """Create a connector to BigQuery using credentials filled in Streamlit secrets"""
     credentials = Credentials.from_service_account_info(st.secrets["bigquery"])

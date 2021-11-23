@@ -21,10 +21,7 @@ TOML_SERVICE_ACCOUNT = """[gsheets]
 public_gsheets_url = "https://docs.google.com/..."
 """
 
-# @st.experimental_singleton()
-# We intendedly do not cache the connector in the actual data sources app
-# so that if secrets are removed, the error is shown and we don't use
-# the connector from cache
+
 @st.experimental_singleton()
 def get_connector():
     connector = connect()
