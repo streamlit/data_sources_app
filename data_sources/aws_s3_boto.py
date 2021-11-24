@@ -31,9 +31,9 @@ def get_connector():
     """Create a connector to AWS S3"""
 
     connector = boto3.Session(
-        aws_access_key_id=st.secrets.aws_s3.AWS_ACCESS_KEY_ID,
-        aws_secret_access_key=st.secrets.aws_s3.AWS_SECRET_ACCESS_KEY,
-    ).resource("s3")
+        aws_access_key_id=st.secrets.aws_s3.ACCESS_KEY_ID,
+        aws_secret_access_key=st.secrets.aws_s3.SECRET_ACCESS_KEY,
+    ).client("s3")
 
     return connector
 
@@ -77,6 +77,7 @@ def tutorial():
         access_key_id = form.text_input("Access Key ID")
         secret_access_key = form.text_input("Secret Access Key", type="password")
         submit = form.form_submit_button("Create TOML credentials")
+
         if submit:
             json_credentials = {
                 "aws_s3": {
@@ -114,8 +115,8 @@ def app():
     def get_connector():
         """Create a connector to AWS S3"""
         connector = boto3.Session(
-            aws_access_key_id=st.secrets.aws_s3.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=st.secrets.aws_s3.AWS_SECRET_ACCESS_KEY,
+            aws_access_key_id=st.secrets.aws_s3.ACCESS_KEY_ID,
+            aws_secret_access_key=st.secrets.aws_s3.SECRET_ACCESS_KEY,
         ).client("s3")
         return connector
 
