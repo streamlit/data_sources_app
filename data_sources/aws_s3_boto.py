@@ -26,13 +26,13 @@ PASTE_INTO_SECRETS = f"""**Paste these TOML credentials into your Streamlit Secr
 You should click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")}"""
 
 
-@st.experimental_singleton()
+# @st.experimental_singleton()
 def get_connector():
     """Create a connector to AWS S3"""
 
     connector = boto3.Session(
-        aws_access_key_id=st.secrets.aws_s3.AWS_ACCESS_KEY_ID,
-        aws_secret_access_key=st.secrets.aws_s3.AWS_SECRET_ACCESS_KEY,
+        aws_access_key_id=st.secrets.aws_s3.ACCESS_KEY_ID,
+        aws_secret_access_key=st.secrets.aws_s3.SECRET_ACCESS_KEY,
     ).resource("s3")
 
     return connector
@@ -77,6 +77,7 @@ def tutorial():
         access_key_id = form.text_input("Access Key ID")
         secret_access_key = form.text_input("Secret Access Key", type="password")
         submit = form.form_submit_button("Create TOML credentials")
+
         if submit:
             json_credentials = {
                 "aws_s3": {
@@ -114,9 +115,9 @@ def app():
     def get_connector():
         """Create a connector to AWS S3"""
         connector = boto3.Session(
-            aws_access_key_id=st.secrets.aws_s3.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=st.secrets.aws_s3.AWS_SECRET_ACCESS_KEY,
-        ).client("s3")
+            aws_access_key_id=st.secrets.aws_s3.ACCESS_KEY_ID,
+            aws_secret_access_key=st.secrets.aws_s3.SECRET_ACCESS_KEY,
+        ).resource("s3")
         return connector
 
     # Time to live: the maximum number of seconds to keep an entry in the cache
@@ -126,11 +127,23 @@ def app():
     def get_buckets(_connector) -> list:
         return [bucket.name for bucket in list(_connector.buckets.all())]
 
+    def to_tuple(s3_object):
+        return (
+            s3_object.key,
+            s3_object.last_modified,
+            s3_object.size,
+            s3_object.storage_class,
+        )
+
     @st.experimental_memo(ttl=TTL)
     def get_files(_connector, bucket) -> pd.DataFrame:
-        files = s3.list_objects_v2(Bucket=bucket).get("Contents")
+        files = list(s3.Bucket(name=bucket).objects.all())
         if files:
-            return pd.DataFrame(files)[["Key", "LastModified", "Size", "StorageClass"]]
+            df = pd.DataFrame(
+                pd.Series(files).apply(to_tuple).tolist(),
+                columns=["key", "last_modified", "size", "storage_class"],
+            )
+            return df
 
     st.markdown(f"## 📦 Connecting to AWS S3")
 
