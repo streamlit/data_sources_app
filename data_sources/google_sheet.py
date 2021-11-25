@@ -2,7 +2,7 @@ import streamlit as st
 from gsheetsdb import connect
 import toml
 
-from utils.ui import to_do, to_button
+from utils.ui import to_do, to_button, image_from_url
 
 INIT_GSHEET = f"""**If you don't have one yet, [create a new Google Sheet](https://sheets.new/)**.  
 
@@ -47,7 +47,7 @@ def tutorial():
             (st.write, MAKE_IT_PUBLIC),
             (
                 st.image,
-                "https://user-images.githubusercontent.com/7164864/143441230-0968925f-86a0-4bf1-bc89-c8403df6ef36.png",
+                image_from_url("https://user-images.githubusercontent.com/7164864/143441230-0968925f-86a0-4bf1-bc89-c8403df6ef36.png"),
             ),
         ],
         "make_it_public",
@@ -83,7 +83,7 @@ def tutorial():
             (st.write, PASTE_INTO_SECRETS),
             (
                 st.image,
-                "https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png",
+                image_from_url("https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png"),
             ),
         ],
         "copy_pasted_secrets",

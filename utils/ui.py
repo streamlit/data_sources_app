@@ -1,4 +1,7 @@
 import streamlit as st
+import requests
+from PIL import Image
+from io import BytesIO
 
 
 def striken(text):
@@ -46,3 +49,9 @@ def load_keyboard_class():
 
 def to_button(text):
     return f'<span class="kbdx">{text}</span>'
+
+
+@st.experimental_memo(ttl=60 * 60 * 24)
+def image_from_url(url):
+    response = requests.get(url)
+    return Image.open(BytesIO(response.content))

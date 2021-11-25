@@ -3,7 +3,7 @@ from snowflake.connector import connect
 from snowflake.connector.connection import SnowflakeConnection
 import toml
 
-from utils.ui import to_do, to_button
+from utils.ui import to_do, to_button, image_from_url
 
 TOML_SERVICE_ACCOUNT = """[snowflake]
 user = ...
@@ -78,7 +78,9 @@ def tutorial():
             (st.write, PASTE_INTO_SECRETS),
             (
                 st.image,
-                "https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png",
+                image_from_url(
+                    "https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png"
+                ),
             ),
         ],
         "copy_pasted_secrets",

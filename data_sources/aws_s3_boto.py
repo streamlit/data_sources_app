@@ -1,7 +1,7 @@
 import streamlit as st
 import boto3
 
-from utils.ui import to_do, to_button
+from utils.ui import to_do, to_button, image_from_url
 
 SIGN_UP = """**[Sign up](https://aws.amazon.com/) for AWS or log in**"""
 
@@ -54,7 +54,9 @@ def tutorial():
             (st.write, CREATE_BUCKET),
             (
                 st.image,
-                "https://user-images.githubusercontent.com/7164864/143440317-7db1d5f9-7dc6-45c2-b637-3ec360e73a6d.png",
+                image_from_url(
+                    "https://user-images.githubusercontent.com/7164864/143440317-7db1d5f9-7dc6-45c2-b637-3ec360e73a6d.png"
+                ),
             ),
         ],
         "create_bucket",
@@ -65,7 +67,9 @@ def tutorial():
             (st.write, UPLOAD_FILE_IN_BUCKET),
             (
                 st.image,
-                "https://user-images.githubusercontent.com/7164864/143440405-aa572b34-b559-407c-97f5-ded4ad9f0495.png",
+                image_from_url(
+                    "https://user-images.githubusercontent.com/7164864/143440405-aa572b34-b559-407c-97f5-ded4ad9f0495.png"
+                ),
             ),
         ],
         "upload_file_in_bucket",
@@ -76,7 +80,9 @@ def tutorial():
             (st.write, CREATE_ACCESS_KEYS),
             (
                 st.image,
-                "https://user-images.githubusercontent.com/7164864/143440472-f0bf5bd3-4029-49ad-8732-49e45ebdeef8.png",
+                image_from_url(
+                    "https://user-images.githubusercontent.com/7164864/143440472-f0bf5bd3-4029-49ad-8732-49e45ebdeef8.png"
+                ),
             ),
         ],
         "create_access_keys",
@@ -117,7 +123,9 @@ def tutorial():
             (st.write, PASTE_INTO_SECRETS),
             (
                 st.image,
-                "https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png",
+                image_from_url(
+                    "https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png"
+                ),
             ),
         ],
         "copy_pasted_secrets",
