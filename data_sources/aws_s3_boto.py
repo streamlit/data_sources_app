@@ -6,25 +6,29 @@ from utils.ui import to_do, to_button, image_from_url
 SIGN_UP = """**[Sign up](https://aws.amazon.com/) for AWS or log in**"""
 
 CREATE_BUCKET = f"""**Create a bucket**  
+
 Go to the [S3 console](https://s3.console.aws.amazon.com/s3/home), click on {to_button("Create bucket")} 
 and create a bucket
 """
 
 UPLOAD_FILE_IN_BUCKET = f"""**Upload one or more file(s) in the bucket**  
+
 Click on one of your buckets and head to the upload section. Now upload one or more file(s)
 """
 
 CREATE_ACCESS_KEYS = f"""**Create an access key**  
+
 First, visit the [AWS console](https://console.aws.amazon.com/). Then:
 """
 
 FORMAT_INTO_TML = f"""**Generate your TOML credentials for Streamlit**  
+
 Paste your "Access Key ID" and "Secret Access Key" below to generate TOML credentials
 """
 
 PASTE_INTO_SECRETS = f"""**Paste these TOML credentials into your Streamlit Secrets! **  
-You should click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")}"""
 
+To open your settings, click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} and then update {to_button("Sharing")} and {to_button("Secrets")}"""
 
 # @st.experimental_singleton()
 def get_connector():
@@ -124,7 +128,7 @@ def tutorial():
             (
                 st.image,
                 image_from_url(
-                    "https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png"
+                    "https://user-images.githubusercontent.com/7164864/143465207-fa7ddc5f-a396-4291-a08b-7d2ecc9512d2.png"
                 ),
             ),
         ],

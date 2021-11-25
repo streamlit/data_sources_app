@@ -5,13 +5,6 @@ import toml
 
 from utils.ui import to_do, to_button, image_from_url
 
-TOML_SERVICE_ACCOUNT = """[snowflake]
-user = ...
-password = ...
-account = ...
-warehouse = ...
-"""
-
 SIGN_UP_SNOWFLAKE = """**If you haven't already, [sign up for Snowflake](https://signup.snowflake.com/)**"""
 
 SIGN_IN_URL = "https://docs.snowflake.com/en/user-guide/connecting.html#logging-in-using-the-web-interface"
@@ -19,10 +12,9 @@ SIGN_IN_SNOWFLAKE = f"""**Sign in to the [Snowflake web interface]({SIGN_IN_URL}
 
 Don't forget to write down your username, password, account and warehouse identifiers, we need them right after!"""
 
-PASTE_INTO_SECRETS = f"""**Paste the TOML credentials generated above into your Streamlit Secrets! **  
+PASTE_INTO_SECRETS = f"""**Paste these TOML credentials into your Streamlit Secrets! **  
 
-If the Cloud console is not yet opened, click on {to_button("Manage app")} in the bottom right part of this window.  
-Once it is opened, then click on {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")} and paste your TOML service account there. Don't forget to {to_button("Save")}!"""
+To open your settings, click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} and then update {to_button("Sharing")} and {to_button("Secrets")}"""
 
 
 @st.experimental_singleton()
@@ -79,7 +71,7 @@ def tutorial():
             (
                 st.image,
                 image_from_url(
-                    "https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png"
+                    "https://user-images.githubusercontent.com/7164864/143465207-fa7ddc5f-a396-4291-a08b-7d2ecc9512d2.png"
                 ),
             ),
         ],

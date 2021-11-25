@@ -12,14 +12,9 @@ MAKE_IT_PUBLIC = f"""**Make sure that your Sheet is public**
 
 Open your Sheet, click on {to_button("Share")} > {to_button("Share with ...")} and select {to_button("Anyone with the link can view")}."""
 
-PASTE_INTO_SECRETS = f"""**Paste the TOML credentials into your Streamlit Secrets! **  
+PASTE_INTO_SECRETS = f"""**Paste these TOML credentials into your Streamlit Secrets! **  
 
-If the Cloud console is not yet opened, click on {to_button("Manage app")} in the bottom right part of this window.  
-Once it is opened, then click on {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")} and paste your TOML credentials there. Don't forget to {to_button("Save")}!"""
-
-TOML_SERVICE_ACCOUNT = """[gsheets]
-public_gsheets_url = "https://docs.google.com/..."
-"""
+To open your settings, click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} and then update {to_button("Sharing")} and {to_button("Secrets")}"""
 
 
 @st.experimental_singleton()
@@ -47,7 +42,9 @@ def tutorial():
             (st.write, MAKE_IT_PUBLIC),
             (
                 st.image,
-                image_from_url("https://user-images.githubusercontent.com/7164864/143441230-0968925f-86a0-4bf1-bc89-c8403df6ef36.png"),
+                image_from_url(
+                    "https://user-images.githubusercontent.com/7164864/143441230-0968925f-86a0-4bf1-bc89-c8403df6ef36.png"
+                ),
             ),
         ],
         "make_it_public",
@@ -83,7 +80,9 @@ def tutorial():
             (st.write, PASTE_INTO_SECRETS),
             (
                 st.image,
-                image_from_url("https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png"),
+                image_from_url(
+                    "https://user-images.githubusercontent.com/7164864/143465207-fa7ddc5f-a396-4291-a08b-7d2ecc9512d2.png"
+                ),
             ),
         ],
         "copy_pasted_secrets",

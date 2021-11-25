@@ -4,7 +4,7 @@ from google.oauth2.service_account import Credentials
 import json, toml
 from io import StringIO
 
-from utils.ui import to_do, to_button
+from utils.ui import to_do, to_button, image_from_url
 
 TUTORIAL_1 = """**Enable the BigQuery API.**  
 
@@ -31,10 +31,9 @@ to create and download your service account file."""
 
 TUTORIAL_3 = """**Convert your JSON service account to TOML.**"""
 
-TUTORIAL_4 = f"""**Paste the TOML service account into your Streamlit Secrets! **  
+PASTE_INTO_SECRETS = f"""**Paste these TOML credentials into your Streamlit Secrets! **  
 
-If the Cloud console is not yet opened, click on {to_button("Manage app")} in the bottom right part of this window.  
-Once it is opened, then click on {to_button("⋮")} > {to_button("⚙ Settings")} > {to_button("Secrets")} and paste your TOML service account there. Don't forget to {to_button("Save")}!"""
+To open your settings, click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} and then update {to_button("Sharing")} and {to_button("Secrets")}"""
 
 
 @st.experimental_singleton()
@@ -57,7 +56,9 @@ def tutorial():
             (st.write, TUTORIAL_1),
             (
                 st.image,
-                "https://user-images.githubusercontent.com/7164864/143440812-fbff40a0-2c15-4ade-af74-48b4bdaa5700.png",
+                image_from_url(
+                    "https://user-images.githubusercontent.com/7164864/143440812-fbff40a0-2c15-4ade-af74-48b4bdaa5700.png"
+                ),
             ),
         ],
         "bigquery_enabled",
@@ -68,13 +69,17 @@ def tutorial():
             (st.write, TUTORIAL_2_1),
             (
                 st.image,
-                "https://user-images.githubusercontent.com/7164864/143441050-51754071-0463-4c0b-a733-78c6e9d73572.png",
+                image_from_url(
+                    "https://user-images.githubusercontent.com/7164864/143441050-51754071-0463-4c0b-a733-78c6e9d73572.png"
+                ),
             ),
             (st.caption, TUTORIAL_2_2),
             (st.write, TUTORIAL_2_3),
             (
                 st.image,
-                "https://user-images.githubusercontent.com/7164864/143441099-8edeb680-c5c7-452f-aae9-30de5f8b700d.png",
+                image_from_url(
+                    "https://user-images.githubusercontent.com/7164864/143441099-8edeb680-c5c7-452f-aae9-30de5f8b700d.png"
+                ),
             ),
         ],
         "service_account_created",
@@ -133,10 +138,12 @@ def tutorial():
 
     to_do(
         [
-            (st.write, TUTORIAL_4),
+            (st.write, PASTE_INTO_SECRETS),
             (
                 st.image,
-                "https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png",
+                image_from_url(
+                    "https://user-images.githubusercontent.com/7164864/143465207-fa7ddc5f-a396-4291-a08b-7d2ecc9512d2.png"
+                ),
             ),
         ],
         "copy_pasted_secrets",
