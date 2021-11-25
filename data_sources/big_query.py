@@ -57,9 +57,7 @@ def tutorial():
             (st.write, TUTORIAL_1),
             (
                 st.image,
-                "imgs/big-query-3.png",
-                # None,
-                # 300,
+                "https://user-images.githubusercontent.com/7164864/143440812-fbff40a0-2c15-4ade-af74-48b4bdaa5700.png",
             ),
         ],
         "bigquery_enabled",
@@ -70,17 +68,13 @@ def tutorial():
             (st.write, TUTORIAL_2_1),
             (
                 st.image,
-                "imgs/big-query-4.png",
-                # None,
-                # 300,
+                "https://user-images.githubusercontent.com/7164864/143441050-51754071-0463-4c0b-a733-78c6e9d73572.png",
             ),
             (st.caption, TUTORIAL_2_2),
             (st.write, TUTORIAL_2_3),
             (
                 st.image,
-                "imgs/big-query-8.png",
-                # None,
-                # 300,
+                "https://user-images.githubusercontent.com/7164864/143441099-8edeb680-c5c7-452f-aae9-30de5f8b700d.png",
             ),
         ],
         "service_account_created",
@@ -138,7 +132,13 @@ def tutorial():
     )
 
     to_do(
-        [(st.write, TUTORIAL_4), (st.image, "imgs/fill_secrets.png")],
+        [
+            (st.write, TUTORIAL_4),
+            (
+                st.image,
+                "https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png",
+            ),
+        ],
         "copy_pasted_secrets",
     )
 

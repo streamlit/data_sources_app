@@ -52,20 +52,32 @@ def tutorial():
     to_do(
         [
             (st.write, CREATE_BUCKET),
-            (st.image, "imgs/s3-create-bucket.png"),
+            (
+                st.image,
+                "https://user-images.githubusercontent.com/7164864/143440317-7db1d5f9-7dc6-45c2-b637-3ec360e73a6d.png",
+            ),
         ],
         "create_bucket",
     )
 
     to_do(
-        [(st.write, UPLOAD_FILE_IN_BUCKET), (st.image, "imgs/s3-upload.png")],
+        [
+            (st.write, UPLOAD_FILE_IN_BUCKET),
+            (
+                st.image,
+                "https://user-images.githubusercontent.com/7164864/143440405-aa572b34-b559-407c-97f5-ded4ad9f0495.png",
+            ),
+        ],
         "upload_file_in_bucket",
     )
 
     to_do(
         [
             (st.write, CREATE_ACCESS_KEYS),
-            (st.image, "imgs/s3-create-access-key-total.png"),
+            (
+                st.image,
+                "https://user-images.githubusercontent.com/7164864/143440472-f0bf5bd3-4029-49ad-8732-49e45ebdeef8.png",
+            ),
         ],
         "create_access_keys",
     )
@@ -101,7 +113,13 @@ def tutorial():
     )
 
     to_do(
-        [(st.write, PASTE_INTO_SECRETS), (st.image, "imgs/fill_secrets.png")],
+        [
+            (st.write, PASTE_INTO_SECRETS),
+            (
+                st.image,
+                "https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png",
+            ),
+        ],
         "copy_pasted_secrets",
     )
 

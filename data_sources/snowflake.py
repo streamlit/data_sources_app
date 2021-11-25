@@ -76,7 +76,10 @@ def tutorial():
     to_do(
         [
             (st.write, PASTE_INTO_SECRETS),
-            (st.image, "imgs/fill_secrets.png"),
+            (
+                st.image,
+                "https://user-images.githubusercontent.com/7164864/143440545-bf90572b-a192-47b1-986f-abcdeec625b6.png",
+            ),
         ],
         "copy_pasted_secrets",
     )
