@@ -12,7 +12,7 @@ SIGN_IN_SNOWFLAKE = f"""**Sign in to the [Snowflake web interface]({SIGN_IN_URL}
 
 Don't forget to write down your username, password, account and warehouse identifiers, we need them right after!"""
 
-PASTE_INTO_SECRETS = f"""**Paste these TOML credentials into your Streamlit Secrets! **  
+PASTE_INTO_SECRETS = f"""**Paste these TOML credentials into your Streamlit Secrets!**  
 
 To open your settings, click on {to_button("Manage app")} > {to_button("⋮")} > {to_button("⚙ Settings")} and then update {to_button("Sharing")} and {to_button("Secrets")}"""
 
